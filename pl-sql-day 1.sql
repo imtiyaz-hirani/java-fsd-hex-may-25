@@ -262,11 +262,129 @@ SET @x = 5;
 CALL proc_salary_by_id(@x)
 select @x as "Current Salary"; 
 
+/* Trigger   
+create trigger trg_employee_update 
 
+create trigger <trigger-name> 
+BEFORE | AFTER  	INSERT | DELETE | UPDATE   ON <table-name>
+FOR EACH ROW 
+BEGIN
 
+END
 
+always go for BEFORE the op. 78000     old: 78000  new: 88000 
+*/
+create table employee_log(
+	id int primary key auto_increment, 
+    old_salary double, 
+    new_salary double, 
+    date_of_op date, 
+    username varchar(255)); 
+alter table employee_log ADD column eid INT; 
+-- update employee SET esalary=5600000 where id=6;  NEW.salary = 5600000	OLD.salary = 92000
+DELIMITER $$
+create trigger trg_employee_update
+BEFORE UPDATE ON employee
+FOR EACH ROW 
+BEGIN
+	insert into employee_log(old_salary,new_salary,date_of_op,username,eid) 
+    values (OLD.esalary,NEW.esalary,now(),user(), OLD.eid);
+END; 
+-- lets do an update op on employee and get trigger going automatically 
+update employee SET esalary=200000 where eid=6; 
+drop trigger trg_employee_update;
 
+-- Trigger for Query Validation 
 
+/* salary shd not be beyond 500000 while inserting new employee */
+insert into employee(ename,ebranch,edepartment,esalary) 
+values ("john doe", "mumbai", "finance", 600000);
+
+DELIMITER $$
+create trigger trg_employee_insert 
+BEFORE INSERT on employee 
+FOR EACH ROW 
+BEGIN
+	IF NEW.esalary > 500000 THEN
+		SIGNAL SQLSTATE '' 
+        SET message_text ="Error: Salary shd not be beyond 500000 while inserting new employee" ;
+    END IF;
+END; 
+
+/* Views : Views are created to safeguard critical info from outside world */
+-- create a view to safeguard employee salary 
+delimiter $$ 
+create view view_employee 
+AS
+select eid,ename,ebranch,edepartment
+from employee; 
+
+-- views can also be used for table stats 
+-- create a view for showing employee stat based on department 
+delimiter $$ 
+create view view_employee_department_stats 
+AS
+select edepartment, count(eid) as employee_count
+from employee 
+group by edepartment ; 
+-- do this. create a view for showing employee stat based on department with analysis simulation 
+-- views are also created for customized projections 
+/*
+edepartment = HR
+|   1 | Amit Sharma     | Mumbai    | HR          |
+|   4 | Neha Verma      | Mumbai    | HR          |
+
+edepartment = IT
+|   2 | Priya Patel     | Delhi     | IT          |
+
+edepartment =  Finance
+|   3 | Rajesh Kumar    | Bangalore | Finance     |
+
+*/
+
+/** Functions 
+procedure cannot return a value(workaround-use OUT param) , but functions can and must return a value. 
+*/
+-- func to fetch employee salary based on id 
+delimiter $$
+create function emp_sal_func(p_id INT) 
+returns double 
+DETERMINISTIC 
+begin
+	declare sal double; 
+	select esalary into sal 
+    from employee
+    where eid = p_id; 
+    
+    return sal;
+end; 
+drop function emp_sal_func;
+set GLOBAL log_bin_trust_function_creators = 0; 
+delimiter $$
+create function random_func() 
+returns double
+DETERMINISTIC 
+begin
+	declare num double; 
+	select rand() into num; 
+    set num = num * 10000000000; 
+    return num; 
+end; 
+/*
+if you are pulling out info from the table data, then if is deterministic 
+But if u ask for a current date[num()] or random number[rand()] , DB has to do the computation 
+without looking at the table and this will be NON deterministic as it keeps changing all the time. 
+*/
+select emp_sal_func(6) as "Emp_SALARY";
+select random_func() as "RANDOM NUMBER";
+
+/*
+	Anonymous procedures: one that do not have name. 
+    
+    BEGIN
+		statements 
+    END
+*/
 
 
 
