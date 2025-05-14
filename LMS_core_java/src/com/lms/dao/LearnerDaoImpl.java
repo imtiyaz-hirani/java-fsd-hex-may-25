@@ -39,7 +39,7 @@ public class LearnerDaoImpl implements LearnerDao{
 
 	@Override
 	public void deleteById(int id) throws InvalidIdException {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
@@ -56,6 +56,7 @@ public class LearnerDaoImpl implements LearnerDao{
 	}
 
 	 public static void main(String[] args) {
+		 
 		LearnerDaoImpl dao = new LearnerDaoImpl();
 		System.out.println("------------------------------------");
 		dao.getAll().stream()
