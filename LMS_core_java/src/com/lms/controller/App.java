@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.lms.exception.InvalidIdException;
+import com.lms.exception.InvalidInputException;
 import com.lms.model.Learner;
 import com.lms.service.LearnerService;
 
@@ -34,14 +35,40 @@ public class App {
 					List<Learner> list =  learnerService.getAllLearners();
 					list.stream().forEach(l-> System.out.println(l));
 					break;
+				
 				case 3: 
+					System.out.println("Enter Learner ID: ");
+				try {
+					learnerService.deleteById(sc.nextInt());
+					System.out.println("learner deleted..");
+				} catch (InvalidIdException e) {
+					System.out.println(e.getMessage());
+				}
 					break;
 				case 4: 
+					System.out.println("Enter Learner ID: ");
+				
+					try {
+						Learner learner = learnerService.getById(sc.nextInt());
+						System.out.println("Existing Record");
+						System.out.println(learner);
+						System.out.println("Enter Name");
+						sc.nextLine(); //hold the console
+						String name = sc.nextLine(); //type
+						System.out.println("Enter email");
+						String email = sc.nextLine();
+						learnerService.update(learner, name,email); 
+						System.out.println("Learner record updated..");
+					} catch (InvalidIdException | InvalidInputException e) {
+						System.out.println(e.getMessage());
+					}
+					
+					System.out.println("Record Update...");
 					break;
 				case 5: 
 					System.out.println("Enter Learner ID: ");
 						try {
-							Learner learner  =  learnerService.getById(sc.nextInt());
+							Learner learner =  learnerService.getById(sc.nextInt());
 							System.out.println(learner);
 						} catch (InvalidIdException e) {
 							System.out.println(e.getMessage());

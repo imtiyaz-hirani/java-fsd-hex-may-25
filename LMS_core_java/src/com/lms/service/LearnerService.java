@@ -5,8 +5,9 @@ import java.util.List;
 import com.lms.dao.LearnerDao;
 import com.lms.dao.LearnerDaoImpl;
 import com.lms.exception.InvalidIdException;
+import com.lms.exception.InvalidInputException;
 import com.lms.model.Learner;
-
+ 
 public class LearnerService {
 	
 	LearnerDao dao = new LearnerDaoImpl(); //Polymorphic object. 
@@ -20,5 +21,23 @@ public class LearnerService {
 		 
 		return dao.getById(id);
 	}
+
+	public void deleteById(int id) throws InvalidIdException {
+		dao.deleteById(id);
+	}
+
+	public void update(Learner learner, String name, String email) throws InvalidInputException, InvalidIdException {
+		if(name == null || name.equals("null"))
+			throw new InvalidInputException("Invalid name vaue given"); 
+		if(email == null || email.equals("null"))
+			throw new InvalidInputException("Invalid email vaue given"); 
+		
+		learner.setName(name);
+		learner.setEmail(email);
+		
+		dao.update(learner.getId(), learner); 
+	}
+
+	 
 
 }

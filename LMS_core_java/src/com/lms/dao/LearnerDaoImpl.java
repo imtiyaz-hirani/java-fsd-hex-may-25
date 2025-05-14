@@ -1,5 +1,6 @@
 package com.lms.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lms.exception.InvalidIdException;
@@ -40,13 +41,28 @@ public class LearnerDaoImpl implements LearnerDao{
 	@Override
 	public void deleteById(int id) throws InvalidIdException {
 		
+		List<Learner> list = learnerUtility.getSampleData(); //100X=[1,2,3,4]
+		int size  = list.size(); //this is the initial size 
+		//System.out.println("In delete method... " + list);
+		//filter the record as per given id 
+		list =  list.stream().filter(l->l.getId() != id).toList();
+		int resetSize = list.size();
+		if(size == resetSize)
+			throw new InvalidIdException("Could not find givn ID"); 
 		
+		//System.out.println("In delete, after filter,,, "+ list);
+		LearnerUtility.setList(list);
 	}
-
+	//100X:  [2,3,4,1]
+	//200X: [2,3,4,1]
 	@Override
-	public Learner update(int id, Learner learner) throws InvalidIdException, InvalidInputException {
-		// TODO Auto-generated method stub
-		return null;
+	public Learner update(int id, Learner learner) throws InvalidIdException, InvalidInputException { 
+		deleteById(id); 
+		List<Learner> list = getAll();
+		List<Learner> newList = new ArrayList<>(list); //200X
+		newList.add(learner);
+		LearnerUtility.setList(newList);
+		return learner;
 	}
 
 	@Override
@@ -62,17 +78,19 @@ public class LearnerDaoImpl implements LearnerDao{
 		dao.getAll().stream()
 					.forEach(l-> System.out.println(l));
 		System.out.println("------------------------------------");
+		 
 		try {
-			int id =3; 
-			System.out.println("ID given " + id);
-			System.out.println(dao.getById(id)); //100X: [l1,l2,l3,l4]
+			dao.deleteById(4);
 			
-			id =7; 
-			System.out.println("ID given " + id);
-			System.out.println(dao.getById(id));
 		} catch (InvalidIdException e) {
-			 System.out.println(e.getMessage());
+			System.out.println(e.getMessage());
 		}
+		
+		System.out.println("------------------------------------");
+		dao.getAll().stream()
+					.forEach(l-> System.out.println(l));
+		System.out.println("------------------------------------");
+		
 	}
 
 }

@@ -8,7 +8,7 @@ import com.lms.model.Learner;
 
 public class LearnerUtility {
 
-	private List<Learner> list; //100X
+	private static List<Learner> list; //100X
 	
 	//this block will be called when object of LearnerUtility class will be created 
 	{ 
@@ -21,7 +21,9 @@ public class LearnerUtility {
 	}
 	
 	public void populateList() {
-		
+		if(!list.isEmpty()) {
+			return;
+		}
 		Learner l1 = new Learner(); 
 		//l1.setId((int) (Math.random() * 10000000));
 		l1.setId(1);
@@ -46,9 +48,18 @@ public class LearnerUtility {
 		l4.setName("MS Dhoni");
 		l4.setEmail("ms@gmail.com");
 		
-		list = Arrays.asList(l1,l2,l3,l4);  //100X: [l1,l2,l3,l4]
-		
+		list = new ArrayList<>();   //100X: [l1,l2,l3,l4]
+		list.add(l1);
+		list.add(l2);
+		list.add(l3);
+		list.add(l4);
 	}
+
+	public static void setList(List<Learner> list) {
+		LearnerUtility.list = list;
+	}
+	
+	 
 }
 
 
