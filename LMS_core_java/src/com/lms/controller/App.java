@@ -5,14 +5,20 @@ import java.util.Scanner;
 
 import com.lms.exception.InvalidIdException;
 import com.lms.exception.InvalidInputException;
+import com.lms.model.Course;
 import com.lms.model.Learner;
+import com.lms.model.Track;
+import com.lms.service.CourseService;
 import com.lms.service.LearnerService;
 
 public class App {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		LearnerService learnerService = new LearnerService();
+		CourseService courseService = new CourseService();
 		Learner learner = new Learner(); //learner object 
+		Track track = new Track(); 
+		Course course = new Course(); 
 		
 		while(true) {
 			System.out.println("********************MAIN LMS MENU****************");
@@ -21,6 +27,8 @@ public class App {
 			System.out.println("3. Delete Learner");
 			System.out.println("4. Edit Learner");
 			System.out.println("5. get Learner Info by ID");
+			System.out.println("6. Add Track");
+			System.out.println("7. Add Course");
 			System.out.println("0. To Exit");
 			System.out.println("********************-------------****************");
 			int input  = sc.nextInt(); 
@@ -87,6 +95,26 @@ public class App {
 							System.out.println(e.getMessage());
 						}
 					break;
+				case 6: //adding track 
+					System.out.println("Enter track name");
+					sc.nextLine(); 
+					track.setName(sc.nextLine());
+					courseService.insertTrack(track); 
+					System.out.println("Track added in DB");
+					break; 
+				case 7: //adding course
+					System.out.println("Enter title");
+					sc.nextLine();
+					course.setTitle(sc.nextLine());
+					System.out.println("Enter fee");
+					course.setFee(sc.nextDouble());
+					System.out.println("Enter discount");
+					course.setDiscount(sc.nextDouble());
+					System.out.println("Enter Track Id");
+					int trackId = sc.nextInt();
+					courseService.insertCourse(course,trackId);
+					System.out.println("Course added in DB");
+					break; 
 				default: 
 					System.out.println("Invaid Input!!!");
 			}	

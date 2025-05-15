@@ -34,14 +34,11 @@ public class LearnerDaoImpl implements LearnerDao{
 									rst.getString("name"),
 									rst.getString("email")); 
 				list.add(learner);
-			}
-			
+			}		
 		} catch (SQLException e) {
 			 System.out.println(e.getMessage());
-		}
-		 
-		 db.close();
-		
+		} 
+		 db.close();	
 		return list; 
 	}
 
