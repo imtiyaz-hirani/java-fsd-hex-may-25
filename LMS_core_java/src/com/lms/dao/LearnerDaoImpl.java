@@ -2,6 +2,7 @@ package com.lms.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,31 @@ public class LearnerDaoImpl implements LearnerDao{
  	private LearnerUtility learnerUtility = new LearnerUtility(); //100X: []
 	@Override
 	public List<Learner> getAll() {
-		 return learnerUtility.getSampleData(); //100X: [l1,l2,l3,l4]
+		 DBUtility db = new DBUtility(); 
+		 Connection con = db.connect();
+		 String sql="select * from learner";
+		 List<Learner> list = new ArrayList<>() ;
+		 //prepare the statement 
+		 try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			//execute the statement 
+			ResultSet rst =  pstmt.executeQuery(sql);
+			while(rst.next() == true) { //while the records exist in the DB 
+				//read the columns id,name,email 
+				Learner learner = new Learner(     //10X 
+									rst.getInt("id"),
+									rst.getString("name"),
+									rst.getString("email")); 
+				list.add(learner);
+			}
+			
+		} catch (SQLException e) {
+			 System.out.println(e.getMessage());
+		}
+		 
+		 db.close();
+		
+		return list; 
 	}
 
 	@Override

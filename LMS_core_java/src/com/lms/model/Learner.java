@@ -9,7 +9,7 @@ public class Learner { //encapsulate the model class
 	
 	public Learner() {  }  //Allows creating blank Object
 
-	public Learner(int id, String name, String email) { //Allows initializing fields during objec ceation
+	public Learner(int id, String name, String email) { //Allows initializing fields during object creation
 		super();
 		this.id = id;
 		this.name = name;
