@@ -1,11 +1,15 @@
 package com.lms.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.lms.exception.InvalidIdException;
 import com.lms.exception.InvalidInputException;
 import com.lms.model.Learner;
+import com.lms.utility.DBUtility;
 import com.lms.utility.LearnerUtility;
 
 public class LearnerDaoImpl implements LearnerDao{
@@ -67,7 +71,26 @@ public class LearnerDaoImpl implements LearnerDao{
 
 	@Override
 	public void insert(Learner learner) throws InvalidInputException {
-		// TODO Auto-generated method stub
+		DBUtility db = new DBUtility();
+		// Establish the Connection
+		Connection con = db.connect();
+		//Generate random ID for Learner 
+		int id = (int) (Math.random() * 1000000000);
+		//SQL to insert record 
+		String sql="insert into learner(name,email) values (?,?)";
+		try {
+			//Prepare the sql statement 
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			//Give values of ? query parameter
+			pstmt.setString(1, learner.getName());
+			pstmt.setString(2, learner.getEmail());
+			//run the statement 
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			 System.out.println(e.getMessage());
+		}
+		
+		db.close();
 		
 	}
 

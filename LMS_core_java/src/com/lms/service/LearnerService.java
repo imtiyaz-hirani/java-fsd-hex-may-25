@@ -38,6 +38,16 @@ public class LearnerService {
 		dao.update(learner.getId(), learner); 
 	}
 
+	public void insert(Learner learner) throws InvalidInputException {
+		if(learner.getName() == null || learner.getName().equals("null"))
+			throw new InvalidInputException("Invalid name vaue given"); 
+		if(learner.getEmail() == null || learner.getEmail().equals("null"))
+			throw new InvalidInputException("Invalid email vaue given"); 
+		
+		 dao.insert(learner);
+		
+	}
+
 	 
 
 }

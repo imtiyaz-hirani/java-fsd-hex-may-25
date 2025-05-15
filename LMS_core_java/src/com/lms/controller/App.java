@@ -12,6 +12,7 @@ public class App {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		LearnerService learnerService = new LearnerService();
+		Learner learner = new Learner(); //learner object 
 		
 		while(true) {
 			System.out.println("********************MAIN LMS MENU****************");
@@ -29,8 +30,20 @@ public class App {
 			}
 				
 			switch(input) {
-				case 1: 
+				case 1: //insert 
+					System.out.println("Enter the name");
+					sc.nextLine(); //hold the console
+					learner.setName(sc.nextLine());
+					System.out.println("Enter the email");
+					learner.setEmail(sc.nextLine());
+					try {
+						learnerService.insert(learner);
+						System.out.println("Record Inserted in DB...");
+					} catch (InvalidInputException e) {
+						System.out.println(e.getMessage());
+					} 
 					break;  
+					
 				case 2: 
 					List<Learner> list =  learnerService.getAllLearners();
 					list.stream().forEach(l-> System.out.println(l));
@@ -49,7 +62,7 @@ public class App {
 					System.out.println("Enter Learner ID: ");
 				
 					try {
-						Learner learner = learnerService.getById(sc.nextInt());
+						learner = learnerService.getById(sc.nextInt());
 						System.out.println("Existing Record");
 						System.out.println(learner);
 						System.out.println("Enter Name");
@@ -68,7 +81,7 @@ public class App {
 				case 5: 
 					System.out.println("Enter Learner ID: ");
 						try {
-							Learner learner =  learnerService.getById(sc.nextInt());
+							learner =  learnerService.getById(sc.nextInt());
 							System.out.println(learner);
 						} catch (InvalidIdException e) {
 							System.out.println(e.getMessage());
