@@ -29,6 +29,8 @@ public class App {
 			System.out.println("5. get Learner Info by ID");
 			System.out.println("6. Add Track");
 			System.out.println("7. Add Course");
+			System.out.println("8. Get All Courses");
+			System.out.println("9. Get Courses by Track");
 			System.out.println("0. To Exit");
 			System.out.println("********************-------------****************");
 			int input  = sc.nextInt(); 
@@ -114,6 +116,19 @@ public class App {
 					int trackId = sc.nextInt();
 					courseService.insertCourse(course,trackId);
 					System.out.println("Course added in DB");
+					break; 
+				case 8: //get all courses
+					 
+					courseService.getAll()
+							.stream()
+							.forEach(c->{
+								System.out.println(c.getId() + "\t" 
+										+ c.getTitle() + "\t"
+										+ c.getFee() + "\t" 
+										+ c.getTrack().getName());	
+							});
+					break;
+				case 9: //get courses by track 
 					break; 
 				default: 
 					System.out.println("Invaid Input!!!");

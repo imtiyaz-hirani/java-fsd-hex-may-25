@@ -1,12 +1,14 @@
 package com.lms.service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import com.lms.dao.CourseDao;
 import com.lms.dao.TrackDao;
 import com.lms.dao.impl.CourseDaoImpl;
 import com.lms.dao.impl.TrackDaoImpl;
 import com.lms.model.Course;
+import com.lms.model.Learner;
 import com.lms.model.Track;
 
 public class CourseService {
@@ -28,6 +30,11 @@ public class CourseService {
 		//set publish date to today's date
 		course.setPublishDate(LocalDate.now());
 		courseDao.insert(course, trackId);
+	}
+
+	public List<Course> getAll() {
+		
+		return courseDao.getAll();
 	}
 
 }
