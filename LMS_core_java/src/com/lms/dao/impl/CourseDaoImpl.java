@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lms.dao.CourseDao;
+import com.lms.exception.InvalidIdException;
+import com.lms.exception.InvalidInputException;
 import com.lms.model.Course;
 import com.lms.model.Track;
 import com.lms.utility.DBUtility;
@@ -66,8 +68,35 @@ public class CourseDaoImpl implements CourseDao{
 	}
 
 	@Override
-	public List<Course> getByTrackId() {
-		// TODO Auto-generated method stub
+	public List<Course> getByTrackId(int trackId) throws InvalidIdException{
+		 
 		return null;
+	}
+
+	@Override
+	public Course getById(int courseId) throws InvalidIdException {
+		Connection con = db.connect();
+		String sql="select * from course where id=?";
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, courseId);
+			
+			ResultSet rst=  pstmt.executeQuery();
+			if(rst.next() == true) {
+				Course course = new Course();
+				course.setId(rst.getInt("id"));
+				course.setTitle(rst.getString("title"));
+				course.setFee(rst.getDouble("fee"));
+				course.setDiscount(rst.getDouble("discount"));
+				
+				return course; 
+			}
+			
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		db.close();
+		throw new InvalidIdException("Course ID given is Invalid");
+		 
 	}
 }

@@ -9,6 +9,7 @@ import com.lms.model.Course;
 import com.lms.model.Learner;
 import com.lms.model.Track;
 import com.lms.service.CourseService;
+import com.lms.service.EnrollService;
 import com.lms.service.LearnerService;
 
 public class App {
@@ -16,6 +17,7 @@ public class App {
 		Scanner sc = new Scanner(System.in);
 		LearnerService learnerService = new LearnerService();
 		CourseService courseService = new CourseService();
+		EnrollService enrollService = new EnrollService();
 		Learner learner = new Learner(); //learner object 
 		Track track = new Track(); 
 		Course course = new Course(); 
@@ -31,6 +33,7 @@ public class App {
 			System.out.println("7. Add Course");
 			System.out.println("8. Get All Courses");
 			System.out.println("9. Get Courses by Track");
+			System.out.println("10. Enroll Learner to Course");
 			System.out.println("0. To Exit");
 			System.out.println("********************-------------****************");
 			int input  = sc.nextInt(); 
@@ -129,6 +132,20 @@ public class App {
 							});
 					break;
 				case 9: //get courses by track 
+					
+					break; 
+				case 10:
+					System.out.println("Enter Learner ID: ");
+					int learnerID = sc.nextInt();
+					System.out.println("Enter Course ID:");
+					int courseId = sc.nextInt();
+					
+					try {
+						enrollService.enroll(learnerID,courseId,sc);
+						System.out.println("Learner Enrolled In Course");
+					} catch (InvalidIdException e) {
+						 System.out.println(e.getMessage());
+					}
 					break; 
 				default: 
 					System.out.println("Invaid Input!!!");
