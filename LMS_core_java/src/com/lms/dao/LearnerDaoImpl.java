@@ -77,13 +77,14 @@ public class LearnerDaoImpl implements LearnerDao{
 		//Generate random ID for Learner 
 		int id = (int) (Math.random() * 1000000000);
 		//SQL to insert record 
-		String sql="insert into learner(name,email) values (?,?)";
+		String sql="insert into learner(id,name,email) values (?,?,?)";
 		try {
 			//Prepare the sql statement 
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			//Give values of ? query parameter
-			pstmt.setString(1, learner.getName());
-			pstmt.setString(2, learner.getEmail());
+			pstmt.setInt(1, id);
+			pstmt.setString(2, learner.getName());
+			pstmt.setString(3, learner.getEmail());
 			//run the statement 
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
