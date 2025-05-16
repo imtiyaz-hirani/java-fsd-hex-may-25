@@ -23,7 +23,6 @@ public class EnrollService {
 	private EnrollDao enrollDao = new EnrollDaoImpl(); 
 	
 	public void enroll(int learnerID, int courseId, Scanner sc) throws InvalidIdException {
-		
 		Enroll enroll = new Enroll(); 
 		 /*
 		  * step 1: validate learnerId

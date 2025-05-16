@@ -9,13 +9,12 @@ import java.util.List;
 
 import com.lms.dao.CourseDao;
 import com.lms.exception.InvalidIdException;
-import com.lms.exception.InvalidInputException;
 import com.lms.model.Course;
 import com.lms.model.Track;
 import com.lms.utility.DBUtility;
 
 public class CourseDaoImpl implements CourseDao{
-	DBUtility db = new DBUtility();
+	DBUtility db = DBUtility.getInstance();
 	
 	@Override
 	public void insert(Course course,int trackId) {
@@ -39,6 +38,7 @@ public class CourseDaoImpl implements CourseDao{
 
 	@Override
 	public List<Course> getAll() {
+		System.out.println(db);
 		Connection con = db.connect();
 		String sql="select * from course c join track t ON c.track_id = t.id";
 		List<Course> list = new ArrayList<>();

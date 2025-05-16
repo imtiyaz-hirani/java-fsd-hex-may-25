@@ -4,13 +4,20 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DBUtility {
+public class DBUtility { 
 
 	private String url="jdbc:mysql://localhost:3306/lms_db";
 	private String userDB = "root";
 	private String passDB = "techskillsit"; 
 	private String driver = "com.mysql.cj.jdbc.Driver";
 	private Connection con; 
+	private static DBUtility db = new DBUtility(); //I create 1 obj 
+	
+	private DBUtility() { } //this stops anyone creating DBUtility obj 
+    
+	public static DBUtility getInstance() { //method that returns DBUtility obj
+		return db;
+	} //i made this method as static, so that it can be called using class Name directly 
 	
 	public  Connection connect() {
 		//step 1: load the driver 

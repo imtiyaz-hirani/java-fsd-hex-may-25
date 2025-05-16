@@ -10,10 +10,11 @@ import com.lms.utility.DBUtility;
 
 public class TrackDaoImpl implements TrackDao{
 
-	DBUtility db = new DBUtility();
+	DBUtility db = DBUtility.getInstance();
 	
 	@Override
 	public void insert(Track track) {
+		System.out.println(db);
 		Connection con = db.connect();
 		String sql = "insert into track(id,name) values (?,?)";
 		try {

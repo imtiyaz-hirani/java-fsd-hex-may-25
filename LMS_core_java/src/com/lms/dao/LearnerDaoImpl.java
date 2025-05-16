@@ -14,11 +14,13 @@ import com.lms.utility.DBUtility;
 import com.lms.utility.LearnerUtility;
 
 public class LearnerDaoImpl implements LearnerDao{
-
+	DBUtility db =  DBUtility.getInstance();
+	
  	private LearnerUtility learnerUtility = new LearnerUtility(); //100X: []
 	@Override
 	public List<Learner> getAll() {
-		 DBUtility db = new DBUtility(); 
+		 
+		 System.out.println(db);
 		 Connection con = db.connect();
 		 String sql="select * from learner";
 		 List<Learner> list = new ArrayList<>() ;
@@ -44,9 +46,7 @@ public class LearnerDaoImpl implements LearnerDao{
 
 	@Override
 	public Learner getById(int id) throws InvalidIdException {
-		
-		DBUtility db = new DBUtility();
-	    Connection con = db.connect();
+		Connection con = db.connect();
 	    String sql = "SELECT * FROM learner WHERE id = ?";
 	    Learner learner = null;
 	    
@@ -119,7 +119,6 @@ public class LearnerDaoImpl implements LearnerDao{
 
 	@Override
 	public void insert(Learner learner) throws InvalidInputException {
-		DBUtility db = new DBUtility();
 		// Establish the Connection
 		Connection con = db.connect();
 		//Generate random ID for Learner 

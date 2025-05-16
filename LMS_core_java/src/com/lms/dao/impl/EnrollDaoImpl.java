@@ -10,10 +10,11 @@ import com.lms.utility.DBUtility;
 
 public class EnrollDaoImpl implements EnrollDao {
 
-	DBUtility db = new DBUtility();
+	DBUtility db = DBUtility.getInstance();
 	
 	@Override
 	public void insert(Enroll enroll) {
+		System.out.println(db);
 		Connection con = db.connect();
 		String sql = "insert into enroll values (?,?,?,?,?)";
 		try {
