@@ -39,11 +39,12 @@ public class Demo {
 		/*
 		 * identify weather it is valid enum value without String conversion
 		 * */
-		city=null;
+		city="PUNE";
 		System.out.println("-------IDENTIFY ALLOWED VALUE : without String---------");
 		try {
 			City urValue =  City.valueOf(city);
 			System.out.println("YES ur value " + urValue + " is correct");
+			System.out.println("Polulation of " + urValue + " in our records is " + urValue.getValue());
 		}
 		catch(IllegalArgumentException e) {
 			System.out.println("No, ur value is not a legal enum value " + city);

@@ -21,7 +21,7 @@ public class EnrollDaoImpl implements EnrollDao {
 			pstmt.setInt(1, enroll.getLearner().getId());
 			pstmt.setInt(2, enroll.getCourse().getId());
 			pstmt.setString(3, enroll.getDateOfEnroll().toString());
-			pstmt.setString(4, enroll.getCouponUsed());
+			pstmt.setString(4, String.valueOf(enroll.getCoupon()));
 			pstmt.setString(5, enroll.getFeePaid());
 			
 			

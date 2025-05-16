@@ -145,6 +145,8 @@ public class App {
 						System.out.println("Learner Enrolled In Course");
 					} catch (InvalidIdException e) {
 						 System.out.println(e.getMessage());
+					} catch(IllegalArgumentException e) {
+						System.out.println("Coupon code is Invalid!!");
 					}
 					break; 
 				default: 

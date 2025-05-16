@@ -2,6 +2,8 @@ package com.lms.model;
 
 import java.time.LocalDate;
 
+import com.lms.enums.Coupon;
+
 public class Enroll {
 
 	//inject learner 
@@ -9,19 +11,23 @@ public class Enroll {
 	//inject course
 	Course course;
 	private LocalDate dateOfEnroll; 
-	private String couponUsed;
+	private Coupon coupon;
 	private String feePaid;
 	
 	public Enroll() { }
 	
-	public Enroll(Learner learner, Course course, LocalDate dateOfEnroll, String couponUsed, String feePaid) {
+	 
+
+	public Enroll(Learner learner, Course course, LocalDate dateOfEnroll, Coupon coupon, String feePaid) {
 		super();
 		this.learner = learner;
 		this.course = course;
 		this.dateOfEnroll = dateOfEnroll;
-		this.couponUsed = couponUsed;
+		this.coupon = coupon;
 		this.feePaid = feePaid;
 	}
+
+
 
 	public Learner getLearner() {
 		return learner;
@@ -47,14 +53,7 @@ public class Enroll {
 		this.dateOfEnroll = dateOfEnroll;
 	}
 
-	public String getCouponUsed() {
-		return couponUsed;
-	}
-
-	public void setCouponUsed(String couponUsed) {
-		this.couponUsed = couponUsed;
-	}
-
+ 
 	public String getFeePaid() {
 		return feePaid;
 	}
@@ -63,11 +62,27 @@ public class Enroll {
 		this.feePaid = feePaid;
 	}
 
+
+
+	public Coupon getCoupon() {
+		return coupon;
+	}
+
+
+
+	public void setCoupon(Coupon coupon) {
+		this.coupon = coupon;
+	}
+
+
+
 	@Override
 	public String toString() {
-		return "Enroll [learner=" + learner + ", course=" + course + ", dateOfEnroll=" + dateOfEnroll + ", couponUsed="
-				+ couponUsed + ", feePaid=" + feePaid + "]";
-	} 
+		return "Enroll [learner=" + learner + ", course=" + course + ", dateOfEnroll=" + dateOfEnroll + ", coupon="
+				+ coupon + ", feePaid=" + feePaid + "]";
+	}
+
+	 
 	
 	
 }

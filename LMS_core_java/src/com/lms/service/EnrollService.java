@@ -1,14 +1,16 @@
 package com.lms.service;
 
+import java.lang.System.Logger.Level;
 import java.time.LocalDate;
 import java.util.Scanner;
-
+ 
 import com.lms.dao.CourseDao;
 import com.lms.dao.EnrollDao;
 import com.lms.dao.LearnerDao;
 import com.lms.dao.LearnerDaoImpl;
 import com.lms.dao.impl.CourseDaoImpl;
 import com.lms.dao.impl.EnrollDaoImpl;
+import com.lms.enums.Coupon;
 import com.lms.exception.InvalidIdException;
 import com.lms.model.Course;
 import com.lms.model.Enroll;
@@ -43,11 +45,22 @@ public class EnrollService {
 		String ans = sc.next();
 		if(ans.equals("Y")) {
 			System.out.println("Enter the code ");
-			enroll.setCouponUsed(sc.next()); 
-			//i will come back here 
+			String couponCode = sc.next().toUpperCase();
+			/* Check: if this couponCode is valid */
+			Coupon coupon = Coupon.valueOf(couponCode); 
+			//if it does not work, i get IllegalArgumentException
+			double discount = (double)coupon.getDiscount();
+			System.out.println("Discount = " + discount);
+			double discountedFee = course.getFee() - (course.getFee() * (discount/100)) ;
+			System.out.println("After Discount, Fee is " + discountedFee);
+			enroll.setCoupon(coupon);
+			enroll.setFeePaid( String.valueOf(discountedFee));
+		}
+		else {
+			System.out.println("No Coupon applied.....");
+			enroll.setFeePaid(String.valueOf(course.getFee()));
 		}
 		
-		enroll.setFeePaid(String.valueOf(course.getFee()));
 		enroll.setDateOfEnroll(LocalDate.now()); 
 		
 		/*

@@ -45,13 +45,39 @@ public class LearnerDaoImpl implements LearnerDao{
 	@Override
 	public Learner getById(int id) throws InvalidIdException {
 		
+		DBUtility db = new DBUtility();
+	    Connection con = db.connect();
+	    String sql = "SELECT * FROM learner WHERE id = ?";
+	    Learner learner = null;
+	    
+	    try {
+	        PreparedStatement pstmt = con.prepareStatement(sql);
+	        pstmt.setInt(1, id);
+	        ResultSet rs = pstmt.executeQuery();
+	        
+	        if (rs.next()) {
+	            learner = new Learner();
+	            learner.setId(rs.getInt("id"));
+	            learner.setName(rs.getString("name"));
+	            learner.setEmail(rs.getString("email"));
+	        } else {
+	            throw new InvalidIdException("Id given is Invalid");
+	        }
+	    } catch (SQLException e) {
+	        System.out.println(e.getMessage());
+	    } finally {
+	        db.close();
+	    }
+ 
+	    return learner;
+		/*
 		for(Learner learner : learnerUtility.getSampleData()) { //100X: [l1,l2,l3,l4]
 			if(learner.getId() == id) 
 					return learner; 
 		}
 		
 		throw new InvalidIdException("Id given is Invalid");
-		
+		*/
 		/*
 		List<Learner> list =  learnerUtility.getSampleData();  //3
 		list = list.stream()
