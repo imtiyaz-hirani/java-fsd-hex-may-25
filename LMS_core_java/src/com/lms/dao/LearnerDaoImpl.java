@@ -34,7 +34,7 @@ public class LearnerDaoImpl implements LearnerDao{
 				Learner learner = new Learner(     //10X 
 									rst.getInt("id"),
 									rst.getString("name"),
-									rst.getString("email")); 
+									rst.getString("email"), null); 
 				list.add(learner);
 			}		
 		} catch (SQLException e) {

@@ -5,12 +5,15 @@ import java.util.Scanner;
 
 import com.lms.exception.InvalidIdException;
 import com.lms.exception.InvalidInputException;
+import com.lms.exception.UserNotFoundException;
 import com.lms.model.Course;
 import com.lms.model.Learner;
 import com.lms.model.Track;
+import com.lms.model.User;
 import com.lms.service.CourseService;
 import com.lms.service.EnrollService;
 import com.lms.service.LearnerService;
+import com.lms.service.UserService;
 
 public class App {
 	public static void main(String[] args) {
@@ -18,25 +21,68 @@ public class App {
 		LearnerService learnerService = new LearnerService();
 		CourseService courseService = new CourseService();
 		EnrollService enrollService = new EnrollService();
+		UserService userService = new UserService();
 		Learner learner = new Learner(); //learner object 
 		Track track = new Track(); 
 		Course course = new Course(); 
+		User user = new User();
 		
 		while(true) {
-			System.out.println("********************MAIN LMS MENU****************");
-			System.out.println("1. Add Learner");
-			System.out.println("2. View All Learner");
-			System.out.println("3. Delete Learner");
-			System.out.println("4. Edit Learner");
-			System.out.println("5. get Learner Info by ID");
-			System.out.println("6. Add Track");
-			System.out.println("7. Add Course");
-			System.out.println("8. Get All Courses");
-			System.out.println("9. Get Courses by Track");
-			System.out.println("10. Enroll Learner to Course");
+			System.out.println("***********AUTH*****************");
+			System.out.println("1. Login");
+			System.out.println("2. SignUp");
 			System.out.println("0. To Exit");
-			System.out.println("********************-------------****************");
-			int input  = sc.nextInt(); 
+			System.out.println("*********************************");
+			int input = sc.nextInt();
+			if(input == 0) {
+				System.out.println("Exiting... Thank you");
+				break; //while loop breaks 
+			}
+			switch(input) {
+				case 1:
+					System.out.println("****************LOGIN******************");
+					System.out.println("Enter Username");
+					String username = sc.next();
+					System.out.println("Enter Password");
+					String password = sc.next();
+					try {
+						user =  userService.login(username,password);
+						System.out.println("Welcome " + username + " , " +  "You have logged I!!!!");
+					} catch (UserNotFoundException e) {
+						System.out.println(e.getMessage());
+						break; 
+					}
+					
+					System.out.println("****************************************");
+					break;
+				case 2: 
+					break;
+				default:
+					System.out.println("Invaid Input!!!");
+					continue; 
+			}	
+			if(user!= null) {
+				if(user.getRole().toString().equals("LEARNER")) {
+					System.out.println("********************MAIN LMS MENU****************");
+					System.out.println("1. Add Learner");
+					System.out.println("2. View All Learner");
+					System.out.println("3. Delete Learner");
+					System.out.println("4. Edit Learner");
+					System.out.println("5. get Learner Info by ID");
+					System.out.println("6. Add Track");
+					System.out.println("7. Add Course");
+					System.out.println("8. Get All Courses");
+					System.out.println("9. Get Courses by Track");
+					System.out.println("10. Enroll Learner to Course");
+					System.out.println("0. To Exit");
+					System.out.println("********************-------------****************");
+				}
+				else {
+					System.out.println("here Instructor menu will go");
+				}
+			}
+			
+			input  = sc.nextInt(); 
 			if(input == 0) {
 				System.out.println("Exiting... Thank you");
 				break; //while loop breaks 
