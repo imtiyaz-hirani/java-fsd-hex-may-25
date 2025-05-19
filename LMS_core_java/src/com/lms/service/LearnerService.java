@@ -28,9 +28,9 @@ public class LearnerService {
 
 	public void update(Learner learner, String name, String email) throws InvalidInputException, InvalidIdException {
 		if(name == null || name.equals("null"))
-			throw new InvalidInputException("Invalid name vaue given"); 
+			throw new InvalidInputException("Invalid name value given"); 
 		if(email == null || email.equals("null"))
-			throw new InvalidInputException("Invalid email vaue given"); 
+			throw new InvalidInputException("Invalid email value given"); 
 		
 		learner.setName(name);
 		learner.setEmail(email);
