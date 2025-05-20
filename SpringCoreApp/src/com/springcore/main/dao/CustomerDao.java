@@ -3,11 +3,11 @@ package com.springcore.main.dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.springcore.main.model.Customer;
 @Repository
 public class CustomerDao {
-
 	
 	private JdbcTemplate jdbcTemplate;
 	
@@ -26,7 +26,7 @@ public class CustomerDao {
 	}
 
 	public void insertCustomer(String name, String city) {
-		String sql="insert into customer(name,city) values (?,?)";
+		String sql="insert into customer(name,city,something) values (?,?)";
 		jdbcTemplate.update(sql,name,city);
 	}
 
