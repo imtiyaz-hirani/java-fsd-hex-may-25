@@ -1,8 +1,11 @@
 package com.springcore.main;
 
+import java.util.List;
 import java.util.Scanner;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import com.springcore.main.model.Customer;
 import com.springcore.main.service.CustomerService;
 
 public class App {
@@ -55,7 +58,10 @@ public class App {
 					System.out.println("Delete");
 					break;
 				case 6:
-					System.out.println("Get All");
+					System.out.println("Get All Customers");
+					List<Customer> list =  customerService.getAllv2();
+					list.stream().forEach(e->System.out.println(e));
+					//list.stream().forEach(System.out :: println);
 					break;
 	
 				default:

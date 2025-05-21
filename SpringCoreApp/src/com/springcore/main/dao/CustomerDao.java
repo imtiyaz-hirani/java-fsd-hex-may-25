@@ -1,11 +1,14 @@
 package com.springcore.main.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.springcore.main.model.Customer;
+import com.springcore.main.utility.CustomerRowMapperUtility;
 @Repository
 public class CustomerDao {
 	
@@ -30,5 +33,24 @@ public class CustomerDao {
 		jdbcTemplate.update(sql,name,city);
 	}
 
+	public List<Customer> getAll() {
+		String sql="select * from customer";
+		return jdbcTemplate.query(sql,new CustomerRowMapperUtility());
+	}
+	
+	public List<Map<String, Object>>  getAllv2() {
+		String sql="select * from customer";
+		List<Map<String, Object>>  list = jdbcTemplate.queryForList(sql);
+		
+		return list; 
+	}
 	
 }
+
+
+
+
+
+
+
+
