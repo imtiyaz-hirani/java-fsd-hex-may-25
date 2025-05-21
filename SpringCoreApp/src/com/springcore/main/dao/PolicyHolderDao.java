@@ -1,7 +1,12 @@
 package com.springcore.main.dao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.springcore.main.model.Address;
@@ -35,6 +40,26 @@ public class PolicyHolderDao {
 							address.getState())	;
 		
 		
+	}
+
+	public List<PolicyHolder> getAllWithAddres() {
+		 String sql = "select * from policyholder ph JOIN address a ON ph.address_id = a.id";
+		return jdbcTemplate.query(sql, new RowMapper<PolicyHolder>() {
+			@Override
+			public PolicyHolder mapRow(ResultSet rst, int rowNum) throws SQLException {
+				 Address address = new Address();
+				 address.setStreet(rst.getString("street"));
+				 address.setCity(rst.getString("city"));
+				 address.setState(rst.getString("state"));
+				 
+				 PolicyHolder ph = new PolicyHolder();
+				 ph.setName(rst.getString("name"));
+				 ph.setPanNo(rst.getString("panNo"));
+				 ph.setAddress(address);
+				 
+				return ph;
+			}
+		});
 	}
 
 }

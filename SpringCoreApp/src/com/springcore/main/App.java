@@ -122,7 +122,18 @@ public class App {
 					policyHolderService.insert(policyHolder,address);
 					System.out.println("Policy holder record created....");
 					break;
+				case 8:
+					List<PolicyHolder> listPh =  policyHolderService.getAllWithAddres();
+					listPh.stream().forEach(e->{
+						System.out.println(e.getName() + "**" 
+								+ e.getPanNo() + "**" 
+								+ e.getAddress().getStreet() + "**"
+								+e.getAddress().getCity() + "**" 
+								+e.getAddress().getState());
+					});
+					break; 
 				default:
+				
 					System.out.println("INVALID CHOICE");
 					break;
 				}

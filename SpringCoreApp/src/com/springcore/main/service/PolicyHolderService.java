@@ -1,5 +1,7 @@
 package com.springcore.main.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +33,12 @@ public class PolicyHolderService {
 		
 		//save policyholder in DB 
 		policyHolderDao.insert(policyHolder);
+	}
+
+
+	public List<PolicyHolder> getAllWithAddres() {
+		return policyHolderDao.getAllWithAddres();
+		 
 	}
 
 }
