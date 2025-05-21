@@ -5,7 +5,7 @@ public class Customer {
 	private int id;
 	private String name;
 	private String city;
-
+ 
 	public Customer() { }
 
 	public Customer(int id, String name, String city) {

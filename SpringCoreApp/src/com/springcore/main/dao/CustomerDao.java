@@ -29,7 +29,7 @@ public class CustomerDao {
 	}
 
 	public void insertCustomer(String name, String city) {
-		String sql="insert into customer(name,city,something) values (?,?)";
+		String sql="insert into customer(name,city) values (?,?)";
 		jdbcTemplate.update(sql,name,city);
 	}
 

@@ -5,13 +5,18 @@ import java.util.Scanner;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import com.springcore.main.model.Address;
 import com.springcore.main.model.Customer;
+import com.springcore.main.model.PolicyHolder;
 import com.springcore.main.service.CustomerService;
+import com.springcore.main.service.PolicyHolderService;
 
 public class App {
 	public static void main(String[] args) {
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 		CustomerService customerService = context.getBean(CustomerService.class);
+		PolicyHolderService policyHolderService = context.getBean(PolicyHolderService.class);
+		PolicyHolder policyHolder = context.getBean(PolicyHolder.class);
 		Scanner sc = new Scanner(System.in);
 
 		while (true) {
@@ -22,6 +27,8 @@ public class App {
 			System.out.println("4. Get Customer by Id");
 			System.out.println("5. Delete Customer");
 			System.out.println("6. Get All Customers");
+			System.out.println("7. Create PolicyHolder account with address");
+			System.out.println("8. Get all PolicyHolder with Address Info");
 			System.out.println("0. EXIT");
 			int choice = sc.nextInt();
 			if (choice == 0) {
@@ -94,7 +101,27 @@ public class App {
 					list.stream().forEach(e->System.out.println(e));
 					//list.stream().forEach(System.out :: println);
 					break;
-	
+				case 7:
+					
+					System.out.println("Enter name:");
+					sc.nextLine();
+					policyHolder.setName(sc.nextLine());
+					
+					System.out.println("Enter Pan:");
+					policyHolder.setPanNo(sc.next());
+					System.out.println("Enter street:");
+					Address address = new Address(); 
+					sc.nextLine();
+					address.setStreet(sc.nextLine());
+					System.out.println("City: ");
+					address.setCity(sc.next());
+					sc.nextLine();
+					System.out.println("State: ");
+					address.setState(sc.nextLine());
+					
+					policyHolderService.insert(policyHolder,address);
+					System.out.println("Policy holder record created....");
+					break;
 				default:
 					System.out.println("INVALID CHOICE");
 					break;

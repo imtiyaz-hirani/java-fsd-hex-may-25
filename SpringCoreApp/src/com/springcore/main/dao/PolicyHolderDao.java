@@ -1,0 +1,40 @@
+package com.springcore.main.dao;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import com.springcore.main.model.Address;
+import com.springcore.main.model.PolicyHolder;
+
+@Repository
+public class PolicyHolderDao {
+
+	
+	private JdbcTemplate jdbcTemplate; 
+	
+	@Autowired
+	public PolicyHolderDao(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
+
+	public void insert(PolicyHolder policyHolder) {
+		String sql="insert into policyholder(name, panNo,address_id) values (?,?,?)";
+		jdbcTemplate.update(sql, 
+							policyHolder.getName(),
+							policyHolder.getPanNo(),
+							policyHolder.getAddress().getId() ) ; 
+	}
+
+	public void insertAddress(Address address) {
+		String sql="insert into address(id,street,city,state) values (?,?,?,?)";
+		jdbcTemplate.update(sql, 
+							address.getId(),
+							address.getStreet(),
+							address.getCity(), 
+							address.getState())	;
+		
+		
+	}
+
+}
