@@ -48,14 +48,35 @@ public class App {
 					
 					break;
 				case 3:
+					System.out.println("Enter Customer ID to update");
+					try {
+						Customer customer =  customerService.getById(sc.nextInt());
+						System.out.println("Existing Customer " +customer);
+						System.out.println("Enter new Name or press 00 to skip");
+						sc.nextLine();
+						String nameVal = sc.nextLine();
+						if(!nameVal.equals("00")) {
+							customer.setName(nameVal);
+						}
+						System.out.println("Enter new City or press 00 to skip");
+						String cityVal = sc.next();
+						if(!cityVal.equals("00")) {
+							customer.setCity(cityVal);
+						}
+						
+						customerService.update(customer);
+						System.out.println("Customer record Updated");
+						
+					}
+					catch(Exception e) {
+						System.out.println("Invalid ID Given!!!Could not fetch Record");
+					}
 					break;
 	
 				case 4:
 					System.out.println("Enter Customer ID");
-					int id  = sc.nextInt();
-					
 					try {
-						Customer customer =  customerService.getById(id);
+						Customer customer =  customerService.getById(sc.nextInt());
 						System.out.println(customer);
 					}
 					catch(Exception e) {

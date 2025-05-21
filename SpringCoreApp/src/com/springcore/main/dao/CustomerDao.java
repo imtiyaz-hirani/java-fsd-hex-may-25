@@ -50,6 +50,11 @@ public class CustomerDao {
 		 return jdbcTemplate.queryForMap(sql, id);
 		
 	}
+
+	public void update(Customer customer) {
+		String sql="update customer SET name=?,city=? where id=?";
+		jdbcTemplate.update(sql,customer.getName(),customer.getCity(), customer.getId());
+	}
 	
 }
 
