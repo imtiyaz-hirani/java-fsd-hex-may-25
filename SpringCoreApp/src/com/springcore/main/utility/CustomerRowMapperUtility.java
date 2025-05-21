@@ -7,7 +7,8 @@ import org.springframework.jdbc.core.RowMapper;
 
 import com.springcore.main.model.Customer;
 
-public class CustomerRowMapperUtility implements RowMapper<Customer>{
+public class CustomerRowMapperUtility 
+implements RowMapper<Customer>{
 	
 	@Override
 	public Customer mapRow(ResultSet rst, int rowNum) throws SQLException {

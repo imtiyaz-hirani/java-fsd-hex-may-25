@@ -63,4 +63,14 @@ public class CustomerService {
 		return listCustomer; 
 	}
 
+	public Customer getById(int id) {
+		Map<String,Object> map =  customerDao.getById(id);
+		Customer customer = new Customer( 
+				(int)map.get("id") , 
+				(String)map.get("name"),
+				(String)map.get("city"));
+		
+		return customer;
+	}
+
 }

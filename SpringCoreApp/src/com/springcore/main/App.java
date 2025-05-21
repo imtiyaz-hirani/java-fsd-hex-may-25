@@ -51,7 +51,17 @@ public class App {
 					break;
 	
 				case 4:
-					System.out.println("Get by Id");
+					System.out.println("Enter Customer ID");
+					int id  = sc.nextInt();
+					
+					try {
+						Customer customer =  customerService.getById(id);
+						System.out.println(customer);
+					}
+					catch(Exception e) {
+						System.out.println("Invalid ID Given!!!Could not fetch Record");
+					}
+					
 					break;
 	
 				case 5:

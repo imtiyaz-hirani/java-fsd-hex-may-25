@@ -44,6 +44,12 @@ public class CustomerDao {
 		
 		return list; 
 	}
+
+	public Map<String,Object> getById(int id) {
+		 String sql="select * from customer where id=?";
+		 return jdbcTemplate.queryForMap(sql, id);
+		
+	}
 	
 }
 
