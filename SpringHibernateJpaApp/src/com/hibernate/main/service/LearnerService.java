@@ -1,5 +1,7 @@
 package com.hibernate.main.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,11 @@ public class LearnerService {
 		
 		learnerRepository.insert(learner);
 		
+	}
+
+	public List<Learner> getAll() {
+		 
+		return learnerRepository.getAll();
 	}
 
 }
