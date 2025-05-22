@@ -28,9 +28,22 @@ public class LearnerService {
 		
 	}
 
-	public List<Learner> getAll() {
-		 
+	public List<Learner> getAll() { 
 		return learnerRepository.getAll();
+	}
+
+	public Learner getById(int id) {
+		Learner learner =  learnerRepository.getById(id); 
+		if(learner != null) 
+			return learner;
+		
+		throw new RuntimeException("Invalid Id "); 
+		 
+	}
+ 
+	public void deleteLearner(int id) {
+		learnerRepository.delete(id);
+		
 	}
 
 }

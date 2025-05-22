@@ -1,6 +1,7 @@
 package com.hibernate.main;
 
 import java.util.List;
+import java.util.Scanner;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -11,14 +12,58 @@ public class App {
 
 	public static void main(String[] args) {
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
-
 		LearnerService learnerService = context.getBean(LearnerService.class);
-		learnerService.insert("Ronald Weasley", "ronald@gmail.com", "66598656");
-
-		//System.out.println("Record Inserted...");
-		
-		List<Learner> list =  learnerService.getAll();
-		list.stream().forEach(System.out :: println);
+		Scanner sc = new Scanner (System.in);
+		while(true) {
+			System.out.println("*****************Learner Menu******************");
+			System.out.println("1.ADD Learner");
+			System.out.println("2.GetAll Learner");
+			System.out.println("3.Get LearnerByID");
+			System.out.println("4.Edit Learner");
+			System.out.println("5.Delete Learner By ID");
+			System.out.println("0. Exit");
+			System.out.println("Enter your choice:");
+			int choice=sc.nextInt();
+			
+			if(choice == 0) break; 
+			
+			switch(choice) {
+			case 1:
+				learnerService.insert("Harry potter", "harry@gmail.com", "45454545");
+				System.out.println("Record Inserted...");
+				break;
+			case 2:
+				List<Learner> list=learnerService.getAll();
+				list.stream().forEach(l->System.out.println(l));
+				break;
+			case 3:
+				System.out.println("Enter ID");
+				try {
+					Learner learner =  learnerService.getById(sc.nextInt());
+					System.out.println(learner);
+				}
+				catch(RuntimeException e) {
+					System.out.println(e.getMessage());
+				}
+				break;
+			case 4:
+				break;
+			case 5:
+				System.out.println("Enter ID");
+				try {
+					learnerService.deleteLearner(sc.nextInt());
+					System.out.println("Record Deleted");
+				}
+				catch(RuntimeException e) {
+					System.out.println(e.getMessage());
+				}
+				break;
+			default:
+				break; 
+			}
+			 
+		}
+		sc.close();
 		context.close();
 	}
 

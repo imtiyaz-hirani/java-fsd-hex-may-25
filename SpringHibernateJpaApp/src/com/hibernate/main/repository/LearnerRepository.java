@@ -25,13 +25,33 @@ public class LearnerRepository {
 		return em.createQuery("FROM Learner", Learner.class).getResultList();
 	}
 
+	public Learner getById(int id) {
+		return em.find(Learner.class, id);
+		
+	}
+	 
+	public void delete(int id) {
+		em.remove(getById(id));
+	}
+
 }
 /*
+ *    em: null 
+ *    
+ *    getAll() --- em   em=null 
+ *    getById() -- em: 100X  em=null 
+ *    delete(learner) -- em:200X :---   u fetched using 100X, 
+ *    then i detached this em with 100X and u r deleting using 200X 
+ *    which was fetched using 100X and its already detached. 
+ *    
  *    HQL: FROM Learner 
  *    
  *    DaoImpl <class>
  * 
  * 	  	
- * 	  Repository <class>  	
+ * 	  Repository <class>  
+ * 
+ * Learner 
+ *     User 	
  * 
  */
