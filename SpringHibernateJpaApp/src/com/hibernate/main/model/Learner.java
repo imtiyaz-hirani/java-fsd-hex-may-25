@@ -2,6 +2,8 @@ package com.hibernate.main.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -10,6 +12,7 @@ import jakarta.persistence.Table;
 public class Learner {
 
 	@Id //<-- this makes id a primary key 
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	@Column(nullable = false) //<-- this will add NOT NULL constraint to name 
 	private String name; 
