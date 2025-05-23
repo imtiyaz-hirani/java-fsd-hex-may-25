@@ -5,7 +5,9 @@ import java.util.Scanner;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import com.hibernate.main.model.Course;
 import com.hibernate.main.model.Learner;
+import com.hibernate.main.service.CourseService;
 import com.hibernate.main.service.LearnerService;
 
 public class App {
@@ -13,6 +15,8 @@ public class App {
 	public static void main(String[] args) {
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 		LearnerService learnerService = context.getBean(LearnerService.class);
+		CourseService courseService = context.getBean(CourseService.class); 
+		
 		Scanner sc = new Scanner (System.in);
 		while(true) {
 			System.out.println("*****************Learner Menu******************");
@@ -21,6 +25,7 @@ public class App {
 			System.out.println("3.Get LearnerByID");
 			System.out.println("4.Edit Learner");
 			System.out.println("5.Delete Learner By ID");
+			System.out.println("6. Fetch Course by ID");
 			System.out.println("0. Exit");
 			System.out.println("Enter your choice:");
 			int choice=sc.nextInt();
@@ -47,6 +52,7 @@ public class App {
 				}
 				break;
 			case 4:
+				//hint use persist method 
 				break;
 			case 5:
 				System.out.println("Enter ID");
@@ -58,6 +64,16 @@ public class App {
 					System.out.println(e.getMessage());
 				}
 				break;
+			case 6:
+				System.out.println("Enter ID");
+				try {
+					Course course = courseService.getById(sc.nextInt());
+					 System.out.println(course);
+				}
+				catch(RuntimeException e) {
+					System.out.println(e.getMessage());
+				}	
+				break; 
 			default:
 				break; 
 			}

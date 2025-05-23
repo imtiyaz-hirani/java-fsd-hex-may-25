@@ -24,6 +24,7 @@
 			<artifactId>spring-jdbc</artifactId>
 			<version>6.2.6</version>
 		</dependency>
+		
 		<!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
 		<dependency>
 			<groupId>com.mysql</groupId>

@@ -3,6 +3,7 @@ package com.springcore.main.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -60,6 +61,11 @@ public class PolicyHolderDao {
 				return ph;
 			}
 		});
+	}
+	
+	public List<Map<String,Object>> getAllWithAddresv2(){
+		 String sql = "select * from policyholder ph JOIN address a ON ph.address_id = a.id";
+		 return jdbcTemplate.queryForList(sql);
 	}
 
 }

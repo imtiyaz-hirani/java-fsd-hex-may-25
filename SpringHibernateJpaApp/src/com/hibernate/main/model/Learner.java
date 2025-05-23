@@ -1,10 +1,13 @@
 package com.hibernate.main.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity   //<--this annotation tells hibernate to create a table for this class in DB
@@ -18,6 +21,7 @@ public class Learner {
 	private String name; 
 	private String email;
 	private String contact;
+
 	
 	public Learner(int id, String name, String email, String contact) {
 		super();

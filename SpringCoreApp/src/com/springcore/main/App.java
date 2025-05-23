@@ -123,7 +123,7 @@ public class App {
 					System.out.println("Policy holder record created....");
 					break;
 				case 8:
-					List<PolicyHolder> listPh =  policyHolderService.getAllWithAddres();
+					List<PolicyHolder> listPh =  policyHolderService.getAllWithAddresv2();
 					listPh.stream().forEach(e->{
 						System.out.println(e.getName() + "**" 
 								+ e.getPanNo() + "**" 
