@@ -33,6 +33,10 @@ public class Video {
 	}
 	public void setModule(Module module) {
 		this.module = module;
+	}
+	@Override
+	public String toString() {
+		return "Video [id=" + id + ", videoTitle=" + videoTitle + ", module=" + module + "]";
 	} 
 	
 	

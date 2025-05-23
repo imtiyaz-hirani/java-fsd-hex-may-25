@@ -1,5 +1,7 @@
 package com.hibernate.main.model;
 
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -40,7 +42,11 @@ public class Module {
 
 	public void setCourse(Course course) {
 		this.course = course;
-	} 
-	
-	
+	}
+
+	@Override
+	public String toString() {
+		return "Module [id=" + id + ", moduleName=" + moduleName + ", course=" + course + "]";
+	}
+
 }

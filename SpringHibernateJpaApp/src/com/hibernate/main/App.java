@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import com.hibernate.main.dto.ContainerDto;
 import com.hibernate.main.model.Course;
 import com.hibernate.main.model.Learner;
 import com.hibernate.main.service.CourseService;
@@ -66,9 +67,11 @@ public class App {
 				break;
 			case 6:
 				System.out.println("Enter ID");
+				int id = sc.nextInt();
 				try {
-					Course course = courseService.getById(sc.nextInt());
-					 System.out.println(course);
+					ContainerDto dto = courseService.getById(id);
+				 
+					 System.out.println(dto);
 				}
 				catch(RuntimeException e) {
 					System.out.println(e.getMessage());
