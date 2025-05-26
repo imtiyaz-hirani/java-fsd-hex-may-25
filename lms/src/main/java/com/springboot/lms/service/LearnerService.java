@@ -23,4 +23,9 @@ public class LearnerService {
 		return learnerRepository.findAll();
 	}
 
+	public void deleteLearner(int id) {
+		learnerRepository.deleteById(id);
+		
+	}
+
 }
