@@ -1,6 +1,9 @@
 package com.springboot.lms.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +24,18 @@ public class LearnerController {
 	public Learner insertLearner(@RequestBody Learner learner) {
 		return  learnerService.insertLearner(learner); 
 	}
+	
+	/*
+	 * AIM: To fetch all learner records 
+	 * PATH: /api/learner/get-all
+	 * Method: GET
+	 * Response: List<Learner>
+	 * */
+	@GetMapping("/api/learner/get-all")
+	public List<Learner> getAll() {
+		return learnerService.getAll();
+	}
+	
 }
 /* 
  * {

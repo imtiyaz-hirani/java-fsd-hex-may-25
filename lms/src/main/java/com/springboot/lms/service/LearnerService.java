@@ -1,5 +1,7 @@
 package com.springboot.lms.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.springboot.lms.model.Learner;
@@ -15,6 +17,10 @@ public class LearnerService {
 
 	public Learner insertLearner(Learner learner) { 
 		return learnerRepository.save(learner);
+	}
+
+	public List<Learner> getAll() { 
+		return learnerRepository.findAll();
 	}
 
 }
