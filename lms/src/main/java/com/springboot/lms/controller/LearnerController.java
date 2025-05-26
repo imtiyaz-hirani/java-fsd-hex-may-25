@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -60,6 +61,19 @@ public class LearnerController {
 	@GetMapping("/api/learner/get-one/{id}")
 	public Learner getLearnerById(@PathVariable int id) {
 		return learnerService.getLearnerById(id);
+	}
+	
+	/*
+	 * AIM: Update Learner 
+	 * PATH: /api/learner/update/{id}
+	 * Body: updated learner 
+	 * METHOD: PUT
+	 * response: updated learner
+	 * input: id as path variable , learner as request body  
+	 * */
+	@PutMapping("/api/learner/update/{id}")
+	public Learner updateLearner(@PathVariable int id, @RequestBody Learner updatedLearner) {
+		return learnerService.updateLearner(id,updatedLearner);
 	}
 }
 /* 

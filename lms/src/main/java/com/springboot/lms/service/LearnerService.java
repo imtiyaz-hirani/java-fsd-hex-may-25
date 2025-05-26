@@ -33,4 +33,17 @@ public class LearnerService {
 				.orElseThrow(()->new RuntimeException("ID is Invalid"));
 	}
 
+	public Learner updateLearner(int id, Learner updatedLearner) {
+		/*Step 1: validate the ID and fetch learner record from DB */
+		Learner dbLearner =  learnerRepository.findById(id)
+		.orElseThrow(()->new RuntimeException("Invalid ID Given")); 
+		
+		if(updatedLearner.getName() != null)
+			dbLearner.setName(updatedLearner.getName());
+		if(updatedLearner.getContact() != null)
+			dbLearner.setContact(updatedLearner.getContact());
+		
+		return learnerRepository.save(dbLearner);
+	}
+
 }
