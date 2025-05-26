@@ -28,4 +28,9 @@ public class LearnerService {
 		
 	}
 
+	public Learner getLearnerById(int id) {
+		return learnerRepository.findById(id)
+				.orElseThrow(()->new RuntimeException("ID is Invalid"));
+	}
+
 }

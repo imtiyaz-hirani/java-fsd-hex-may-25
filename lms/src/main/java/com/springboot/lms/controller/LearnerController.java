@@ -50,6 +50,17 @@ public class LearnerController {
 		learnerService.deleteLearner(id);
 	}
 	
+	/*
+	 * AIM: Get Learner By Id
+	 * PATH: /api/learner/get-one/{id}
+	 * Method: GET
+	 * Response: Learner 
+	 * Input: id 
+	 * */
+	@GetMapping("/api/learner/get-one/{id}")
+	public Learner getLearnerById(@PathVariable int id) {
+		return learnerService.getLearnerById(id);
+	}
 }
 /* 
  * {
