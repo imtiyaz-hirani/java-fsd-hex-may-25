@@ -245,6 +245,35 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "localhost:8080/api/module/get?courseId=1",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/module/get?courseId=1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"module",
+								"get"
+							],
+							"query": [
+								{
+									"key": "courseId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -277,6 +306,35 @@
 								"add",
 								"3",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/api/review/rating?rating=4.5",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/review/rating?rating=4.5",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"review",
+								"rating"
+							],
+							"query": [
+								{
+									"key": "rating",
+									"value": "4.5"
+								}
 							]
 						}
 					},
