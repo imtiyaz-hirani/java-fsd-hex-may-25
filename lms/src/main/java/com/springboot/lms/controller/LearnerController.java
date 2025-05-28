@@ -60,9 +60,16 @@ public class LearnerController {
      * */
     @GetMapping("/api/learner/get-one/{id}")
     public ResponseEntity<?> getLearnerById(@PathVariable int id) {
-    	return ResponseEntity
+    	try {
+    		return ResponseEntity
     				.status(HttpStatus.OK)
     				.body(learnerService.getLearnerById(id));
+    	}
+    	catch(Exception e){
+    		return ResponseEntity
+    				.status(HttpStatus.NOT_FOUND)
+    				.body(e.getMessage());
+    	}
     }
 
     /*

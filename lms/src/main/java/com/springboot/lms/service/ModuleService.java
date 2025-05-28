@@ -36,7 +36,9 @@ public class ModuleService {
 
 
 	public List<CModule> getModuleByCourseId(int courseId) {
-		 
+		courseRepository.findById(courseId)
+	 		.orElseThrow(()-> new ResourceNotFoundException("Course Not Found, Id Given is Invalid!"));
+		
 		return moduleRepository.getModuleByCourseId(courseId);
 	}
 
