@@ -3,6 +3,9 @@ package com.springboot.lms.controller;
 import com.springboot.lms.model.Learner;
 import com.springboot.lms.service.LearnerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,8 +32,10 @@ public class LearnerController {
      * Response: List<Learner>
      * */
     @GetMapping("/api/learner/get-all")
-    public List<Learner> getAll() {
-        return learnerService.getAll();
+    public ResponseEntity<?> getAll() {
+    	return ResponseEntity
+    			.status(HttpStatus.OK)
+    			.body(learnerService.getAll());
     }
 
     /*
@@ -41,8 +46,9 @@ public class LearnerController {
      * Input: id - PathVariable
      * */
     @DeleteMapping("/api/learner/delete/{id}")
-    public void deleteLearner(@PathVariable int id) {
+    public ResponseEntity<?> deleteLearner(@PathVariable int id) {
         learnerService.deleteLearner(id);
+        return ResponseEntity.status(HttpStatus.OK).body("Learner deleted"); 
     }
 
     /*
@@ -53,8 +59,10 @@ public class LearnerController {
      * Input: id
      * */
     @GetMapping("/api/learner/get-one/{id}")
-    public Learner getLearnerById(@PathVariable int id) {
-        return learnerService.getLearnerById(id);
+    public ResponseEntity<?> getLearnerById(@PathVariable int id) {
+    	return ResponseEntity
+    				.status(HttpStatus.OK)
+    				.body(learnerService.getLearnerById(id));
     }
 
     /*
