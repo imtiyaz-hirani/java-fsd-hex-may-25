@@ -14,12 +14,12 @@ public class Review {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int id; //findById(int id) <-- In-build method
 	
 	@Column(length = 1000)
-	private String comment; 
+	private String comment; //findByComment(String comment)
 	
-	private String rating; 
+	private String rating;  //findByRating(String rating)
 	
 	@ManyToOne
 	private LearnerCourse learnerCourse;
