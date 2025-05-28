@@ -12,7 +12,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "learner_course")
-public class LearnerCourse {
+public class LearnerCourse {  //lc
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
