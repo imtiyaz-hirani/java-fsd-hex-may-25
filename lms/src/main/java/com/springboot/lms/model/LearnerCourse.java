@@ -2,6 +2,7 @@ package com.springboot.lms.model;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,7 +22,7 @@ public class LearnerCourse {  //lc
 	private LocalDate enrollDate;
 	@Column(name = "coupon_code")
 	private String couponCode;
-	@ManyToOne
+	@ManyToOne //(cascade = CascadeType.ALL)
 	private Learner learner;
 	@ManyToOne
 	private Course course;

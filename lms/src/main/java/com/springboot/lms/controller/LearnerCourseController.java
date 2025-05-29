@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.springboot.lms.model.Course;
 import com.springboot.lms.model.Learner;
 import com.springboot.lms.model.LearnerCourse;
 import com.springboot.lms.service.LearnerCourseService;
@@ -43,6 +44,11 @@ public class LearnerCourseController {
 	@GetMapping("/api/learner/enroll/course/{courseId}")
 	public List<Learner> getLearnerByCourseId(@PathVariable int courseId) {
 		return learnerCourseService.getLearnerByCourseId(courseId);
+	}
+	
+	@GetMapping("/api/course/learner/{learnerId}")
+	public List<Course> getCoursesByLearnerId(@PathVariable int learnerId) {
+		return learnerCourseService.getCoursesByLearnerId(learnerId);
 	}
 }
 

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.springboot.lms.exception.NotEnrolledInCourseException;
 import com.springboot.lms.exception.ResourceNotFoundException;
 
 @ControllerAdvice
@@ -35,6 +36,32 @@ public class GlobalExceptionHandler {
 		map.put("msg", e.getMessage());
 		return ResponseEntity
 				.status(HttpStatus.NOT_FOUND)
+				.body(map);
+	}
+	
+	/*
+	 * Whenever any Unforeseen Exception is thrown in Controller, 
+	 * this method gets called
+	 * */
+	@ExceptionHandler(exception = Exception.class)
+	public ResponseEntity<?> handleException(Exception e) {
+		Map<String,String> map = new HashMap<>();
+		map.put("msg", e.getMessage());
+		return ResponseEntity
+				.status(HttpStatus.NOT_FOUND)
+				.body(map);
+	}
+	
+	/*
+	 * Whenever a NotEnrolledInCourseException is thrown in Controller/service, 
+	 * this method gets called
+	 * */
+	@ExceptionHandler(exception = NotEnrolledInCourseException.class)
+	public ResponseEntity<?> handleNotEnrolledInCourseException(Exception e) {
+		Map<String,String> map = new HashMap<>();
+		map.put("msg", e.getMessage());
+		return ResponseEntity
+				.status(HttpStatus.ACCEPTED)
 				.body(map);
 	}
 }

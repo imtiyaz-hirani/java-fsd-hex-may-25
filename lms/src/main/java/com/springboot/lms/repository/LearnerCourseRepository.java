@@ -22,7 +22,8 @@ public interface LearnerCourseRepository extends JpaRepository<LearnerCourse, In
 	List<Learner> getLearnerByCourseId(int courseId);
 	
 	@Query("select lc.course from LearnerCourse lc where lc.learner.id=?1")
-	List<Course> getCourseByLearnerId();
+	List<Course> getCourseByLearnerId(int learnerId);
+ 
 }
 
 /*
