@@ -7,6 +7,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -14,10 +16,10 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 	
 	@Bean
-	UserDetailsService users() {
+	UserDetailsService users() {  	//<- In memory Authentication
 		UserDetails user = User.builder()
 			.username("user")
-			.password("{noop}user123")
+			.password("{noop}user123")   //<- noop says spring, i am going to use plain text password for now
 			.roles("USER")
 			.build();
 		UserDetails admin = User.builder()
@@ -31,10 +33,17 @@ public class SecurityConfig {
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http
+			.csrf((csrf) -> csrf.disable()) 
 			.authorizeHttpRequests(authorize -> authorize
+					.requestMatchers("/api/user/signup").permitAll()
 				.anyRequest().authenticated()  
 			)
 		 .httpBasic(Customizer.withDefaults()); //<- this activated http basic technique
 		return http.build();
+	}
+	
+	@Bean
+	PasswordEncoder passwordEncoder() {  //<- Bean saves this object in spring's context
+		return new BCryptPasswordEncoder();
 	}
 }
