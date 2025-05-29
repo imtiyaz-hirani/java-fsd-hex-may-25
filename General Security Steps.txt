@@ -1,0 +1,102 @@
+General Security Steps 
+=======================
+
+Step 1: 
+Add Security Dependency
+
+	<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+Step 2: 
+
+	Activate Security if not already done byt deleting this from Main class 
+		
+		(exclude = SecurityAutoConfiguration.class)
+
+Step 3: 
+	Note the temporary password generated from the console and test the API using
+		username: user 
+		password: <generated-password>
+
+This password changes with every Context reload which makes it temporary and highly unreliable 
+
+Step 4: 
+	
+	Create SecurityFilterChain Bean from Official Docs
+
+		@Bean
+	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		http
+			.authorizeHttpRequests(authorize -> authorize
+				.anyRequest().authenticated()  
+			)
+		 .httpBasic(Customizer.withDefaults()); //<- this activated http basic technique
+		return http.build();
+	}
+
+Step 5: 
+	Define In-Memory Auth users 
+
+	@Bean
+	UserDetailsService users() {  	//<- In memory Authentication
+		UserDetails user = User.builder()
+			.username("user")
+			.password("{noop}user123")   //<- noop says spring, i am going to use plain text password for now
+			.roles("USER")
+			.build();
+		UserDetails admin = User.builder()
+			.username("admin")
+			.password("{noop}admin123")
+			.roles("ADMIN")
+			.build();
+		return new InMemoryUserDetailsManager(user, admin);
+	}
+
+and test your APIs with this users.
+
+
+Step 6: 
+Adding Users to DB 
+
+Create a Model User with following property
+
+@Entity
+@Table(name = "user_info")
+public class User {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	@Column(nullable = false)
+	private String username;
+	@Column(nullable = false)
+	private String password;
+	@Column(nullable = false)
+	private String role;
+	
+//add getters and setters
+
+Step 7: 
+
+Create a Signup API and save it in DB 
+	-- refer git for code 
+
+Step 8: Make signup api public and test it in postman
+
+.requestMatchers("/api/user/signup").permitAll()
+
+
+Step 9: 
+Create a CustomUserDetailsService and implement inbuilt UserDetailsService and override method from this interface. 
+  -- refer code from git
+
+Step 10: 
+Create a bean for AuthenticationManager and let spring do the rest. 
+
+@Bean
+	AuthenticationManager getAuthManager(AuthenticationConfiguration auth) 
+			throws Exception {
+		  return auth.getAuthenticationManager();
+	 }
