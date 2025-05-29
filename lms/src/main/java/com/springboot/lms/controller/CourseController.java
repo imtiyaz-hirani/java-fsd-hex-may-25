@@ -21,6 +21,7 @@ public class CourseController {
 	 * METHOD: POST
 	 * Response: Course 		
 	 * Input: Course <-- request body
+	 * Access: AUTHOR or EXECUTIVE 
 	 * */
 	@PostMapping("/add") //<-- /api/course/add 
 	public Course postCourse(@RequestBody Course course) {

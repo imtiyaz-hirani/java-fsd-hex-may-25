@@ -19,7 +19,10 @@ public class SecurityConfig {
 			.csrf((csrf) -> csrf.disable()) 
 			.authorizeHttpRequests(authorize -> authorize
 					.requestMatchers("/api/user/signup").permitAll()
-				.anyRequest().authenticated()  
+					.requestMatchers("/api/learner/add").permitAll()
+					.requestMatchers("/api/learner/get-one/{id}").hasAuthority("LEARNER")
+					.requestMatchers("/api/course/add").hasAnyAuthority("AUTHOR","EXECUTIVE")
+					.anyRequest().authenticated()  
 			)
 		 .httpBasic(Customizer.withDefaults()); //<- this activated http basic technique
 		return http.build();

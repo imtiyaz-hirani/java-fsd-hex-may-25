@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -18,7 +19,11 @@ public class LearnerController {
      
     /*
      * PATH: http://localhost:8080/api/learner/add
-     * Response: Hello Rest API!!!
+     * Response: Learner with User details
+     * PARAM: @RequestBody Learner learner
+     * METHOD: POST 
+     * AIM: I want to add learner in Db along with its user credentails
+     * so that learner can login later. 
      * */
     @PostMapping("/api/learner/add")
     public Learner insertLearner(@RequestBody Learner learner) {
@@ -52,24 +57,16 @@ public class LearnerController {
     }
 
     /*
-     * AIM: Get Learner By Id
-     * PATH: /api/learner/get-one/{id}
+     * AIM: Get Learner using loggedIn credentials
+     * PATH: /api/learner/get-one
      * Method: GET
      * Response: Learner
-     * Input: id
      * */
-    @GetMapping("/api/learner/get-one/{id}")
-    public ResponseEntity<?> getLearnerById(@PathVariable int id) {
-    	try {
-    		return ResponseEntity
-    				.status(HttpStatus.OK)
-    				.body(learnerService.getLearnerById(id));
-    	}
-    	catch(Exception e){
-    		return ResponseEntity
-    				.status(HttpStatus.NOT_FOUND)
-    				.body(e.getMessage());
-    	}
+    @GetMapping("/api/learner/get-one")
+    public Learner getLearnerById(Principal principal) {
+    	// Ask spring username of loggedIn user using Principal interface 
+    	String username = principal.getName(); 
+    	return learnerService.getLearnerByUsername(username) ;
     }
 
     /*

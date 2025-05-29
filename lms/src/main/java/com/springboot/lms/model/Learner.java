@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "learner")
-public class Learner {
+public class Learner { //l 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,7 +12,10 @@ public class Learner {
      
     private String name;
     private String contact;
-
+    
+    @OneToOne
+    private User user; 
+    
     public int getId() {
         return id;
     }
@@ -37,5 +40,13 @@ public class Learner {
         this.contact = contact;
     }
 
+	public User getUser() {
+		return user;
+	}
 
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+    
 }
