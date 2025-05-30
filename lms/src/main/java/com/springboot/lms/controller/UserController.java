@@ -3,6 +3,8 @@ package com.springboot.lms.controller;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +21,8 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private JwtUtil jwtUtil;
 	/*
 	 * AIM: Insert the user in the DB with password encrypted. 
 	 * PATH: /api/user/signup
@@ -32,11 +36,14 @@ public class UserController {
 	}
 	
 	@GetMapping("/token")
-	public String getToken(Principal principal) {
-		System.out.println("I am in the API method");
-		
-		JwtUtil jwtUtil = new JwtUtil();
-		return jwtUtil.createToken(principal.getName()); 
+	public ResponseEntity<?> getToken(Principal principal) {
+		try {
+		String token =jwtUtil.createToken(principal.getName()); 
+		return ResponseEntity.status(HttpStatus.OK).body(token);
+		}
+		catch(Exception e){
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+		}
 	}
 }
 

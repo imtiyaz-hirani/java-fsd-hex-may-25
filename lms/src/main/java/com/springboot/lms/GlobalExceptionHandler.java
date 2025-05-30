@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import com.springboot.lms.exception.NotEnrolledInCourseException;
 import com.springboot.lms.exception.ResourceNotFoundException;
 
+import io.jsonwebtoken.security.SignatureException;
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -64,4 +66,17 @@ public class GlobalExceptionHandler {
 				.status(HttpStatus.ACCEPTED)
 				.body(map);
 	}
+	/*
+	 * Whenever a token is invalid , 
+	 * this method gets called
+	 * */
+	@ExceptionHandler(exception = SignatureException.class)
+	public ResponseEntity<?> handleSignatureException(Exception e) {
+		Map<String,String> map = new HashMap<>();
+		map.put("msg", e.getMessage());
+		return ResponseEntity
+				.status(HttpStatus.UNAUTHORIZED)
+				.body(map);
+	}
+	
 }

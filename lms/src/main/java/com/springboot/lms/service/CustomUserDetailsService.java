@@ -23,6 +23,8 @@ public class CustomUserDetailsService implements UserDetailsService{
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		// Fetch User by given username 
 		User user = userRepository.getByUsername(username);
+		if(user == null)
+			throw new UsernameNotFoundException("Invalid Credentials");
 		
 		// Convert your Role into Authority as spring works with authority
 		SimpleGrantedAuthority sga = new SimpleGrantedAuthority(user.getRole()); 
