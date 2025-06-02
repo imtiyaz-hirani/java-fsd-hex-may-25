@@ -19,7 +19,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"Harry Potter\",\r\n    \"contact\" : \"98667434344\"\r\n}",
+							"raw": "{\r\n    \"name\":\"Jane Doe\",\r\n    \"contact\" : \"98667431156\",\r\n    \"user\":{\r\n        \"username\" : \"jane@gmail.com\",\r\n        \"password\": \"jane@123\"\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -92,12 +92,19 @@
 					"name": "localhost:8080/api/learner/get-one/2",
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb25hbGRAZ21haWwuY29tIiwiaWF0IjoxNzQ4NjAzOTIxLCJleHAiOjE3NDg2NDcxMjF9.hM3vBSiRZU83VWkSZ_PW8SdSiL7XcOAEGfgdfgdfgdfgdfgdfgq-xcvxcv3q6W-c6M",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/learner/get-one/2",
+							"raw": "localhost:8080/api/learner/get-one",
 							"host": [
 								"localhost"
 							],
@@ -105,8 +112,7 @@
 							"path": [
 								"api",
 								"learner",
-								"get-one",
-								"2"
+								"get-one"
 							]
 						}
 					},
@@ -176,6 +182,30 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "localhost:8080/api/course/learner/3",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/course/learner/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"course",
+								"learner",
+								"3"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -185,6 +215,21 @@
 				{
 					"name": "localhost:8080/api/course/add",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "harry@123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "harry@gmail.com",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -315,12 +360,19 @@
 					"name": "localhost:8080/api/review/rating?rating=4.5",
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW5lQGdtYWlsLmNvbSIsImlhdCI6MTc0ODYwNDc4MiwiZXhwIjoxNzQ4NjQ3OTgyfQ.oUTmOYnEtipwBRQQ4eJDhgpe2-ADVM4zHfOfgfgdfg4Wz9hP1E",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/review/rating?rating=4.5",
+							"raw": "localhost:8080/api/review/rating?rating=4",
 							"host": [
 								"localhost"
 							],
@@ -333,8 +385,115 @@
 							"query": [
 								{
 									"key": "rating",
-									"value": "4.5"
+									"value": "4"
 								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "localhost:8080/api/user/token",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "severus@123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "severus@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/user/token",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"user",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/api/user/details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzZXZlcnVzQGdtYWlsLmNvbSIsImlhdCI6MTc0ODg0NTU2OSwiZXhwIjoxNzQ4ODg4NzY5fQ.W95KWblpdPi8xXbF26ROZ5W3YzgpbgI08TovorqwWo0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/user/details",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"user",
+								"details"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "author",
+			"item": [
+				{
+					"name": "localhost:8080/api/author/add",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"severus snape\",\r\n    \"contact\" : \"98664568156\",\r\n    \"website\": \"deepcoder.dev\",\r\n    \"user\":{\r\n        \"username\" : \"severus@gmail.com\",\r\n        \"password\": \"severus@123\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/author/add",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"author",
+								"add"
 							]
 						}
 					},
