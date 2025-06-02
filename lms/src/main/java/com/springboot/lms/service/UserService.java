@@ -3,8 +3,10 @@ package com.springboot.lms.service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.springboot.lms.model.Author;
 import com.springboot.lms.model.Learner;
 import com.springboot.lms.model.User;
+import com.springboot.lms.repository.AuthorRepository;
 import com.springboot.lms.repository.LearnerRepository;
 import com.springboot.lms.repository.UserRepository;
 
@@ -14,12 +16,14 @@ public class UserService {
 	private UserRepository userRepository;
 	private PasswordEncoder passwordEncoder;
 	private LearnerRepository learnerRepository;
+	private AuthorRepository authorRepository;
 
 	public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder,
-			LearnerRepository learnerRepository) {
+			LearnerRepository learnerRepository, AuthorRepository authorRepository) {
 		this.userRepository = userRepository;
 		this.passwordEncoder = passwordEncoder;
 		this.learnerRepository = learnerRepository;
+		this.authorRepository = authorRepository;
 	}
 
 	public User signUp(User user) {
@@ -39,7 +43,11 @@ public class UserService {
 				Learner learner = learnerRepository.getLearnerByUsername(username);
 				return learner;
 			case "AUTHOR":
-				return null;
+				Author author = authorRepository.getAuthorByUsername(username);
+				if (author.isActive())
+					return author;
+				else
+					throw new RuntimeException("Author Inactive");
 			case "EXECUTIVE":
 				return null;
 			default:
