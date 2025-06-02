@@ -3,6 +3,8 @@ package com.springboot.lms.controller;
 import java.security.Principal;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +22,8 @@ public class CourseController {
 
 	@Autowired
 	private CourseService courseService;
+
+	Logger logger = LoggerFactory.getLogger("CourseController");
 
 	/*
 	 * AIM: Add course to DB <-- Should be done only by AUTHOR
@@ -39,7 +43,8 @@ public class CourseController {
 	public List<Course> getAllCourses(
 			@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
 			@RequestParam(name = "size", required = false, defaultValue = "1000000") Integer size) {
-
+		if (page == 0 && size == 1000000)
+			logger.info("No Pagination call for all courses");
 		return courseService.getAllCourses(page, size);
 	}
 
