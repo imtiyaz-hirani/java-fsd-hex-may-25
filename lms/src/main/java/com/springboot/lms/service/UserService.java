@@ -1,10 +1,11 @@
 package com.springboot.lms.service;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.springboot.lms.model.Learner;
 import com.springboot.lms.model.User;
+import com.springboot.lms.repository.LearnerRepository;
 import com.springboot.lms.repository.UserRepository;
 
 @Service
@@ -12,22 +13,39 @@ public class UserService {
 
 	private UserRepository userRepository;
 	private PasswordEncoder passwordEncoder;
-	
-	public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-		super();
+	private LearnerRepository learnerRepository;
+
+	public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder,
+			LearnerRepository learnerRepository) {
 		this.userRepository = userRepository;
 		this.passwordEncoder = passwordEncoder;
+		this.learnerRepository = learnerRepository;
 	}
 
 	public User signUp(User user) {
-		// encrypt the pain text password given 
-		String plainPassword = user.getPassword(); //<- this gives you plain password
-		String encodedPassword =  passwordEncoder.encode(plainPassword);
-		user.setPassword(encodedPassword); //<- Now, User has encoded password 
-		
-		// Save User in DB 
+		// encrypt the pain text password given
+		String plainPassword = user.getPassword(); // <- this gives you plain password
+		String encodedPassword = passwordEncoder.encode(plainPassword);
+		user.setPassword(encodedPassword); // <- Now, User has encoded password
+
+		// Save User in DB
 		return userRepository.save(user);
 	}
-	
-	
+
+	public Object getUserInfo(String username) {
+		User user = userRepository.findByUsername(username);
+		switch (user.getRole().toUpperCase()) {
+			case "LEARNER":
+				Learner learner = learnerRepository.getLearnerByUsername(username);
+				return learner;
+			case "AUTHOR":
+				return null;
+			case "EXECUTIVE":
+				return null;
+			default:
+				return null;
+		}
+
+	}
+
 }

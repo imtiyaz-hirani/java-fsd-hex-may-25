@@ -1,30 +1,35 @@
 package com.springboot.lms.controller;
 
-import com.springboot.lms.model.Learner;
-import com.springboot.lms.service.LearnerService;
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.security.Principal;
-import java.util.List;
+import com.springboot.lms.model.Learner;
+import com.springboot.lms.service.LearnerService;
 
 @RestController
 public class LearnerController {
 
     @Autowired
     private LearnerService learnerService;
-     
+
     /*
      * PATH: http://localhost:8080/api/learner/add
      * Response: Learner with User details
      * PARAM: @RequestBody Learner learner
-     * METHOD: POST 
+     * METHOD: POST
      * AIM: I want to add learner in Db along with its user credentails
-     * so that learner can login later. 
-     * */
+     * so that learner can login later.
+     */
     @PostMapping("/api/learner/add")
     public Learner insertLearner(@RequestBody Learner learner) {
         return learnerService.insertLearner(learner);
@@ -35,12 +40,12 @@ public class LearnerController {
      * PATH: /api/learner/get-all
      * Method: GET
      * Response: List<Learner>
-     * */
+     */
     @GetMapping("/api/learner/get-all")
     public ResponseEntity<?> getAll() {
-    	return ResponseEntity
-    			.status(HttpStatus.OK)
-    			.body(learnerService.getAll());
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(learnerService.getAll());
     }
 
     /*
@@ -49,11 +54,11 @@ public class LearnerController {
      * METHOD: delete
      * response: void
      * Input: id - PathVariable
-     * */
+     */
     @DeleteMapping("/api/learner/delete/{id}")
     public ResponseEntity<?> deleteLearner(@PathVariable int id) {
         learnerService.deleteLearner(id);
-        return ResponseEntity.status(HttpStatus.OK).body("Learner deleted"); 
+        return ResponseEntity.status(HttpStatus.OK).body("Learner deleted");
     }
 
     /*
@@ -61,12 +66,12 @@ public class LearnerController {
      * PATH: /api/learner/get-one
      * Method: GET
      * Response: Learner
-     * */
+     */
     @GetMapping("/api/learner/get-one")
     public Learner getLearnerById(Principal principal) {
-    	// Ask spring username of loggedIn user using Principal interface 
-    	String username = principal.getName(); 
-    	return learnerService.getLearnerByUsername(username) ;
+        // Ask spring username of loggedIn user using Principal interface
+        String username = principal.getName();
+        return learnerService.getLearnerByUsername(username);
     }
 
     /*
@@ -76,22 +81,22 @@ public class LearnerController {
      * METHOD: PUT
      * response: updated learner
      * input: id as path variable , learner as request body
-     * */
+     */
     @PutMapping("/api/learner/update/{id}")
     public Learner updateLearner(@PathVariable int id, @RequestBody Learner updatedLearner) {
         return learnerService.updateLearner(id, updatedLearner);
     }
 }
-/* 
+/*
  * {
-    "name":"Harry Potter",
-    "contact" : "9866746558"
-	}
-	
-	Jackson Dependency 
-	
-	Learner learner = new Learner(); 
-	learner.setName(name)
-	learner.setContact(contact)
+ * "name":"Harry Potter",
+ * "contact" : "9866746558"
+ * }
+ * 
+ * Jackson Dependency
+ * 
+ * Learner learner = new Learner();
+ * learner.setName(name)
+ * learner.setContact(contact)
  * 
  */

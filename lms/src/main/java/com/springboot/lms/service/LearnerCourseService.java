@@ -17,9 +17,9 @@ import com.springboot.lms.repository.LearnerRepository;
 @Service
 public class LearnerCourseService {
 
-	private CourseRepository courseRepository;
-	private LearnerRepository learnerRepository;
-	private LearnerCourseRepository learnerCourseRepository;
+	private final CourseRepository courseRepository;
+	private final LearnerRepository learnerRepository;
+	private final LearnerCourseRepository learnerCourseRepository;
 
 	public LearnerCourseService(CourseRepository courseRepository, LearnerRepository learnerRepository,
 			LearnerCourseRepository learnerCourseRepository) {
@@ -58,7 +58,7 @@ public class LearnerCourseService {
 	 	.orElseThrow(()-> new ResourceNotFoundException("Learner ID Invalid"));
 		
 		 List<Course> list = learnerCourseRepository.getCourseByLearnerId(learnerId);
-		 if(list != null && list.size()==0)
+		 if(list != null && list.isEmpty())
 			 throw new NotEnrolledInCourseException("Learner not enrolled in any course!!");
 		return list;
 	}

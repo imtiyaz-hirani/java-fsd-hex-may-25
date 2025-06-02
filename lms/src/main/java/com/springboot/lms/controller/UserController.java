@@ -23,31 +23,44 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	private JwtUtil jwtUtil;
+
 	/*
-	 * AIM: Insert the user in the DB with password encrypted. 
+	 * AIM: Insert the user in the DB with password encrypted.
 	 * PATH: /api/user/signup
-	 * PARAM: @RequestBody User user 
-	 * Response: User 
-	 * METHOD: POST 
-	 * */
+	 * PARAM: @RequestBody User user
+	 * Response: User
+	 * METHOD: POST
+	 */
 	@PostMapping("/signup")
-	public User signUp(@RequestBody User user ) {
+	public User signUp(@RequestBody User user) {
 		return userService.signUp(user);
 	}
-	
+
+	/*
+	 * AIM: Get the token for valid users(username/password)
+	 * PATH: /api/user/token
+	 * Response: Token
+	 * METHOD: GET
+	 */
 	@GetMapping("/token")
 	public ResponseEntity<?> getToken(Principal principal) {
 		try {
-		String token =jwtUtil.createToken(principal.getName()); 
-		return ResponseEntity.status(HttpStatus.OK).body(token);
-		}
-		catch(Exception e){
+			String token = jwtUtil.createToken(principal.getName());
+			return ResponseEntity.status(HttpStatus.OK).body(token);
+		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
 		}
 	}
+
+	@GetMapping("/details")
+	public Object getLoggedInUserDetails(Principal principal) {
+		String username = principal.getName(); // loggedIn username
+		/**
+		 * Lets get the Role info of this User
+		 * As we dont know who the user really is? Learner? Author?
+		 */
+		Object object = userService.getUserInfo(username);
+		return object;
+	}
+
 }
-
-
-
-
-

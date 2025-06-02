@@ -12,36 +12,37 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-@Configuration //<- This ensures that this class gets called during every API call
+@Configuration // <- This ensures that this class gets called during every API call
 public class SecurityConfig {
 	@Autowired
 	private JwtFilter jwtFilter;
+
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http
-			.csrf((csrf) -> csrf.disable()) 
-			.authorizeHttpRequests(authorize -> authorize
-					.requestMatchers("/api/learner/get-all").permitAll()
-					.requestMatchers("/api/user/signup").permitAll()
-					.requestMatchers("/api/user/token").authenticated()
-					.requestMatchers("/api/learner/add").permitAll()
-					.requestMatchers("/api/learner/get-one").hasAuthority("LEARNER")
-					.requestMatchers("/api/course/add").hasAnyAuthority("AUTHOR","EXECUTIVE")
-					.anyRequest().authenticated()  
-			)
-		 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class) 
-		 .httpBasic(Customizer.withDefaults()); //<- this activated http basic technique
+				.csrf((csrf) -> csrf.disable())
+				.authorizeHttpRequests(authorize -> authorize
+						.requestMatchers("/api/learner/get-all").permitAll()
+						.requestMatchers("/api/user/signup").permitAll()
+						.requestMatchers("/api/user/token").authenticated()
+						.requestMatchers("/api/user/details").authenticated()
+						.requestMatchers("/api/learner/add").permitAll()
+						.requestMatchers("/api/learner/get-one").hasAuthority("LEARNER")
+						.requestMatchers("/api/course/add").hasAnyAuthority("AUTHOR", "EXECUTIVE")
+						.anyRequest().authenticated())
+				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+				.httpBasic(Customizer.withDefaults()); // <- this activated http basic technique
 		return http.build();
 	}
-	
+
 	@Bean
-	PasswordEncoder passwordEncoder() {  //<- Bean saves this object in spring's context
+	PasswordEncoder passwordEncoder() { // <- Bean saves this object in spring's context
 		return new BCryptPasswordEncoder();
 	}
-	
+
 	@Bean
-	AuthenticationManager getAuthManager(AuthenticationConfiguration auth) 
+	AuthenticationManager getAuthManager(AuthenticationConfiguration auth)
 			throws Exception {
-		  return auth.getAuthenticationManager();
-	 }
+		return auth.getAuthenticationManager();
+	}
 }

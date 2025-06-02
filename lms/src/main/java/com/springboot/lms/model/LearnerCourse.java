@@ -2,7 +2,6 @@ package com.springboot.lms.model;
 
 import java.time.LocalDate;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,7 +12,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "learner_course")
-public class LearnerCourse {  //lc
+public class LearnerCourse { // lc
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +21,7 @@ public class LearnerCourse {  //lc
 	private LocalDate enrollDate;
 	@Column(name = "coupon_code")
 	private String couponCode;
-	@ManyToOne //(cascade = CascadeType.ALL)
+	@ManyToOne // (cascade = CascadeType.ALL)
 	private Learner learner;
 	@ManyToOne
 	private Course course;
