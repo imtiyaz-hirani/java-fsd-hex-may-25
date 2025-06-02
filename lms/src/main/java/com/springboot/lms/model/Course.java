@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -17,6 +18,9 @@ public class Course {
 	@Column(nullable = false)
 	private String title;
 	private int credits;
+
+	@ManyToOne
+	private Author author;
 
 	public int getId() {
 		return id;
@@ -40,6 +44,14 @@ public class Course {
 
 	public void setCredits(int credits) {
 		this.credits = credits;
+	}
+
+	public Author getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(Author author) {
+		this.author = author;
 	}
 
 }
