@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -84,7 +85,7 @@ public class LearnerController {
      * response: updated learner
      * input: id as path variable , learner as request body
      */
-    @PostMapping("/api/learner/update/{id}")
+    @PutMapping("/api/learner/update/{id}")
     public Learner updateLearner(@PathVariable("id") int id, @RequestBody Learner updatedLearner) {
         logger.info("ID given is : " + id);
         return learnerService.updateLearner(id, updatedLearner);

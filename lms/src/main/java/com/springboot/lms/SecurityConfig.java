@@ -32,6 +32,8 @@ public class SecurityConfig {
 						.requestMatchers("/api/author/add").permitAll()
 						.requestMatchers("/api/course/all").permitAll()
 						.requestMatchers("/api/learner/update/{id}").hasAuthority("LEARNER")
+						.requestMatchers("/api/module/add/{courseId}").hasAuthority("AUTHOR")
+						.requestMatchers("/api/video/add/{moduleId}").hasAuthority("AUTHOR")
 						.anyRequest().authenticated())
 				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
 				.httpBasic(Customizer.withDefaults()); // <- this activated http basic technique

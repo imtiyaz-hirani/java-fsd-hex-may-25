@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
+// Code Quality tool: Sonar / Fortify : Code smells 
 @Entity
 @Table(name = "author")
 public class Author {
