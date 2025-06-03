@@ -19,44 +19,36 @@ public class LearnerCourseController {
 
 	@Autowired
 	private LearnerCourseService learnerCourseService;
-	
+
 	/*
 	 * AIM: Enroll learner to course by adding record in relation entity
 	 * PATH: /api/learner/enroll/course/{learnerId}/{courseId}
-	 * METHOD: POST 
+	 * METHOD: POST
 	 * PARAM: Path variable(learnerId,courseId) , Request Body ({ couponCode: ""})
-	 * Response: LearnerCourse 
+	 * Response: LearnerCourse
 	 * 
-	 * */
+	 */
 	@PostMapping("/api/learner/enroll/course/{learnerId}/{courseId}")
-	public LearnerCourse enrollLearnerInCourse(@PathVariable int learnerId, 
-									  @PathVariable int courseId, 
-									  @RequestBody LearnerCourse learnerCourse) {
-		return learnerCourseService.enrollLearnerInCourse(learnerId,courseId,learnerCourse);
+	public LearnerCourse enrollLearnerInCourse(@PathVariable("learnerId") int learnerId,
+			@PathVariable("courseId") int courseId,
+			@RequestBody LearnerCourse learnerCourse) {
+		return learnerCourseService.enrollLearnerInCourse(learnerId, courseId, learnerCourse);
 	}
+
 	/*
-	 * AIM: Fetch all learners that have enrolled in given course 
+	 * AIM: Fetch all learners that have enrolled in given course
 	 * PATH: /api/learner/enroll/course/{courseId}
-	 * METHOD: GET 
-	 * PARAM: Path variable(courseId)  
-	 * Response: List<Learner>   
-	 * */
+	 * METHOD: GET
+	 * PARAM: Path variable(courseId)
+	 * Response: List<Learner>
+	 */
 	@GetMapping("/api/learner/enroll/course/{courseId}")
 	public List<Learner> getLearnerByCourseId(@PathVariable int courseId) {
 		return learnerCourseService.getLearnerByCourseId(courseId);
 	}
-	
+
 	@GetMapping("/api/course/learner/{learnerId}")
-	public List<Course> getCoursesByLearnerId(@PathVariable int learnerId) {
+	public List<Course> getCoursesByLearnerId(@PathVariable("learnerId") int learnerId) {
 		return learnerCourseService.getCoursesByLearnerId(learnerId);
 	}
 }
-
-
-
-
-
-
-
-
-
