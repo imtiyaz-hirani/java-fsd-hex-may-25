@@ -1,6 +1,7 @@
 package com.springboot.lms.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,6 +91,12 @@ public class LearnerController {
         logger.info("ID given is : " + id);
         return learnerService.updateLearner(id, updatedLearner);
     }
+
+    @GetMapping("/api/learner/course/{courseId}")
+    public List<?> getLearnersByCourseId(@PathVariable("courseId") int courseId) {
+        return learnerService.getLearnersByCourseId(courseId);
+    }
+
 }
 /*
  * {
