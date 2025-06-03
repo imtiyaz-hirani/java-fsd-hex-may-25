@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -39,17 +40,19 @@ public class LearnerCourseServiceTest {
     private Course course;
     private LearnerCourse learnerCourse;
 
-    @BeforeEach
+    @BeforeEach // <-- before every test these objects will be created at locations in HEAP
     public void init() {
         learner = new Learner();
         learner.setId(1);
         learner.setName("Harry Potter");
         learner.setContact("98667434344");
+        System.out.println("learner created at " + learner);
 
         course = new Course();
         course.setId(1);
         course.setTitle("my course");
         course.setCredits(1000);
+        System.out.println("course created at " + course);
 
         learnerCourse = new LearnerCourse();
         learnerCourse.setId(25);
@@ -57,6 +60,7 @@ public class LearnerCourseServiceTest {
         learnerCourse.setCourse(course);
         learnerCourse.setCouponCode("ABC");
         learnerCourse.setEnrollDate(LocalDate.now());
+        System.out.println("learner course created at " + learnerCourse);
     }
 
     // @Test
@@ -111,5 +115,17 @@ public class LearnerCourseServiceTest {
         e = assertThrows(ResourceNotFoundException.class,
                 () -> learnerCourseService.enrollLearnerInCourse(100, 49, lc));
         assertEquals("Course ID Invalid".toLowerCase(), e.getMessage().toLowerCase());
+    }
+
+    @AfterEach
+    // After each test case, the objects used in them will get nullified and HEAP
+    // memory vl be free
+    public void afterTest() {
+        learner = null;
+        System.out.println("Learner object released.." + learner);
+        course = null;
+        System.out.println("Course object released.." + course);
+        learnerCourse = null;
+        System.out.println("LearnerCourse object released.." + learnerCourse);
     }
 }
