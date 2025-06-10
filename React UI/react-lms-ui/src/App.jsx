@@ -1,12 +1,14 @@
 import Concepts from "./components/Concepts";
 import Task from "./components/Task";
+import TodoList from "./components/Todo";
 
 function App() {
 
   return (
     <div>
       {/** <Concepts />**/}
-      <Task />
+      {/** <Task />**/}
+      <TodoList />
     </div>
   )
 }
