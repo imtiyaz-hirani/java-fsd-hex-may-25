@@ -9,7 +9,7 @@ function AddPost() {
 
     const addPost = async () => {
         try {
-            await axios.post('https://jsonplaceholder.typicode.com/posts/8989898',
+            await axios.post('https://jsonplaceholder.typicode.com/posts',
                 {
                     'title': title,
                     'body': postText,

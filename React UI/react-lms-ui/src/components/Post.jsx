@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 function Post() {
     let [postArry, setPostArry] = useState([]);
+    let [msg, setMsg] = useState("")
     useEffect(() => {
         const getPosts = async () => {
             try {
@@ -15,6 +16,22 @@ function Post() {
         }
         getPosts(); //<-- calling the function to ensure API is called.. 
     }, []);
+
+    const onDelete = async (postId) => {
+        try {
+            // Step 1: Call the API 
+            //axios.delete('https://jsonplaceholder.typicode.com/posts/' + postId)
+            await axios.delete(`https://jsonplaceholder.typicode.com/posts/${postId}`);
+            // Step 2: Remove element from array 
+            let temp = [...postArry];
+            temp = temp.filter(p => p.id !== postId);
+            // if the condition is true, the element stays else it is deleted 
+            setPostArry(temp)
+            setMsg("Post with id " + postId + " deleted!!!")
+        } catch (err) {
+            setMsg("Could not delete resource")
+        }
+    }
     return (
         <div className="container-fluid">
             <nav className="navbar navbar-expand-lg navbar-light bg-light mb-4">
@@ -42,6 +59,13 @@ function Post() {
                 </div>
             </nav>
             <div><h3 className="display-5">All Posts</h3></div>
+            {
+                msg !== "" ? <div className="row">
+                    <div className="col-lg-12">
+                        {msg}
+                    </div>
+                </div> : ""
+            }
             <div className="row">
 
                 {
@@ -54,7 +78,8 @@ function Post() {
                                 <div className="card-body">
                                     <h5 className="card-title"> {post.title}</h5>
                                     <p className="card-text">{post.body}</p>
-                                    <a href="#" className="btn btn-primary">View Comments</a>
+                                    <a href="#" className="btn btn-primary">View Comments</a> &nbsp;&nbsp;
+                                    <button className="btn btn-danger" onClick={() => { onDelete(post.id) }}>Delete</button>
                                 </div>
                             </div>
                         </div>

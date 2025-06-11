@@ -11,8 +11,8 @@ function App() {
       {/** <Concepts />**/}
       {/** <Task />**/}
       {/** <TodoList />**/}
-      {/** <Post />**/}
-      <AddPost />
+      <Post />
+      {/** <AddPost />**/}
     </div>
   )
 }
