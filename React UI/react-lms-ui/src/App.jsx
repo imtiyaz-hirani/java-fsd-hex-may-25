@@ -1,3 +1,4 @@
+import AddPost from "./components/AddPost";
 import Concepts from "./components/Concepts";
 import Post from "./components/Post";
 import Task from "./components/Task";
@@ -10,7 +11,8 @@ function App() {
       {/** <Concepts />**/}
       {/** <Task />**/}
       {/** <TodoList />**/}
-      <Post />
+      {/** <Post />**/}
+      <AddPost />
     </div>
   )
 }
