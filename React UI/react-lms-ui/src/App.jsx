@@ -1,4 +1,5 @@
 import Concepts from "./components/Concepts";
+import Post from "./components/Post";
 import Task from "./components/Task";
 import TodoList from "./components/Todo";
 
@@ -8,7 +9,8 @@ function App() {
     <div>
       {/** <Concepts />**/}
       {/** <Task />**/}
-      <TodoList />
+      {/** <TodoList />**/}
+      <Post />
     </div>
   )
 }
