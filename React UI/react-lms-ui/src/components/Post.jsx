@@ -67,7 +67,6 @@ function Post() {
                 </div> : ""
             }
             <div className="row">
-
                 {
                     postArry.map((post) => (
                         <div className="col-md-12 mb-2" key={post.id}>

@@ -1,5 +1,6 @@
 import AddPost from "./components/AddPost";
 import Concepts from "./components/Concepts";
+import FetchPost from "./components/FetchPost";
 import Post from "./components/Post";
 import Task from "./components/Task";
 import TodoList from "./components/Todo";
@@ -11,8 +12,9 @@ function App() {
       {/** <Concepts />**/}
       {/** <Task />**/}
       {/** <TodoList />**/}
-      <Post />
+      {/** <Post /> **/}
       {/** <AddPost />**/}
+      <FetchPost />
     </div>
   )
 }
