@@ -1,5 +1,6 @@
 import AddPost from "./components/AddPost";
 import Concepts from "./components/Concepts";
+import CourseList from "./components/CourseList";
 import FetchPost from "./components/FetchPost";
 import Post from "./components/Post";
 import Task from "./components/Task";
@@ -14,7 +15,8 @@ function App() {
       {/** <TodoList />**/}
       {/** <Post /> **/}
       {/** <AddPost />**/}
-      <FetchPost />
+      {/** <FetchPost /> **/}
+      <CourseList />
     </div>
   )
 }
