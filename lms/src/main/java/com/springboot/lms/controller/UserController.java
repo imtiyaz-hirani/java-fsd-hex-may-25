@@ -1,6 +1,8 @@
 package com.springboot.lms.controller;
 
 import java.security.Principal;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,7 +50,9 @@ public class UserController {
 	public ResponseEntity<?> getToken(Principal principal) {
 		try {
 			String token = jwtUtil.createToken(principal.getName());
-			return ResponseEntity.status(HttpStatus.OK).body(token);
+			Map<String, Object> map = new HashMap<>();
+			map.put("token", token);
+			return ResponseEntity.status(HttpStatus.OK).body(map);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
 		}
@@ -62,6 +66,7 @@ public class UserController {
 		 * As we dont know who the user really is? Learner? Author?
 		 */
 		Object object = userService.getUserInfo(username);
+
 		return object;
 	}
 

@@ -15,7 +15,30 @@ function Login() {
             const response = await axios.get('http://localhost:8080/api/user/token', {
                 headers: { "Authorization": "Basic " + encodedString }
             })
-            console.log(response)
+            //console.log(response.data.token)
+            let token = response.data.token; //<-- this is our access token, save it for later usage. (redux,localstorage)
+            localStorage.setItem('token', token); //<-- saving token for future use in browsers local storage mem
+            // Step 2: Get User Details 
+            let details = await axios.get('http://localhost:8080/api/user/details', {
+                headers: { "Authorization": "Bearer " + token }
+            }
+            )
+            //console.log(details)
+
+            let role = details.data.user.role;
+            switch (role) {
+                case "LEARNER":
+                    console.log("go to learner dshboard ");
+                    break;
+                case "AUTHOR":
+                    console.log("go to author dshboard ");
+                    break;
+                case "EXECUTIVE":
+                    console.log("go to executive dshboard ");
+                    break;
+                default:
+                    setMsg("Login Disabled, Contact Admin at admin@example.com")
+            }
             setMsg("Login Success!!!")
         }
         catch (err) {
