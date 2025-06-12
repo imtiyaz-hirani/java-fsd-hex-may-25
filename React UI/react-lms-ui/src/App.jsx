@@ -2,6 +2,7 @@ import AddPost from "./components/AddPost";
 import Concepts from "./components/Concepts";
 import CourseList from "./components/CourseList";
 import FetchPost from "./components/FetchPost";
+import Login from "./components/Login";
 import Post from "./components/Post";
 import Task from "./components/Task";
 import TodoList from "./components/Todo";
@@ -16,7 +17,8 @@ function App() {
       {/** <Post /> **/}
       {/** <AddPost />**/}
       {/** <FetchPost /> **/}
-      <CourseList />
+      {/* <CourseList /> */}
+      <Login />
     </div>
   )
 }
