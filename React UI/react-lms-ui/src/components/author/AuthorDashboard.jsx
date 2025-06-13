@@ -1,9 +1,18 @@
-import { useRef, useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
 import '../../css/author.css';
 import Sidebar from './Sidebar';
+import Navbar from './Navbar';
 
 function AuthorDashboard() {
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        let token = localStorage.getItem('token');
+        if (token == null || token == undefined || token == "")
+            navigate("/")
+    }, []);
     // State to track if the sidebar/overlay is "closed" (meaning the overlay is hidden and sidebar is collapsed)
     const [isClosed, setIsClosed] = useState(true);
 
@@ -35,34 +44,46 @@ function AuthorDashboard() {
     };
 
     return (
-        <div>
-            <div id="wrapper" ref={wrapperRef}>
-                <div
-                    className="overlay"
-                    ref={overlayRef}
-                    style={{ display: isClosed ? 'none' : 'block' }}
-                ></div>
-                <Sidebar />
 
-                <div id="page-content-wrapper">
-                    {/* Hamburger button controlled by state and click handler */}
-                    <button
-                        type="button"
-                        className={`hamburger animated fadeInLeft ${isClosed ? 'is-closed' : 'is-open'}`}
-                        data-toggle="offcanvas" // This attribute is for jQuery, handled by handleHamburgerClick in React
-                        onClick={handleHamburgerClick}
-                    >
-                        <span className="hamb-top"></span>
-                        <span className="hamb-middle"></span>
-                        <span className="hamb-bottom"></span>
-                    </button>
-                    <div className="container">
-                        <div className="row">
-                            <Outlet />
+        <div className='container-fluid' >
+            <div className='row'>
+                <div className='col-lg-12'>
+                    <Navbar />
+                </div>
+                <div className='col-lg-12'>
+                    <div id="wrapper" ref={wrapperRef}  >
+
+                        <div
+                            className="overlay"
+                            ref={overlayRef}
+                            style={{ display: isClosed ? 'none' : 'block' }}
+                        ></div>
+                        <Sidebar />
+
+                        <div id="page-content-wrapper">
+                            {/* Hamburger button controlled by state and click handler */}
+                            <button
+                                type="button"
+                                className={`hamburger animated fadeInLeft ${isClosed ? 'is-closed' : 'is-open'}`}
+                                data-toggle="offcanvas" // This attribute is for jQuery, handled by handleHamburgerClick in React
+                                onClick={handleHamburgerClick}
+                            >
+                                <span className="hamb-top"></span>
+                                <span className="hamb-middle"></span>
+                                <span className="hamb-bottom"></span>
+                            </button>
+                            <div className="container">
+                                <div className="row">
+                                    <Outlet />
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                 </div>
             </div>
+
+
 
 
         </div>

@@ -26,7 +26,8 @@ function Login() {
             }
             )
             //console.log(details)
-
+            let name = details.data.name;
+            localStorage.setItem('name', name);
             let role = details.data.user.role;
             switch (role) {
                 case "LEARNER":
