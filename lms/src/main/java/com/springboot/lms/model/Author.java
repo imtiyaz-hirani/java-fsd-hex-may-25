@@ -10,7 +10,7 @@ import jakarta.persistence.Table;
 // Code Quality tool: Sonar / Fortify : Code smells 
 @Entity
 @Table(name = "author")
-public class Author {
+public class Author { // a
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

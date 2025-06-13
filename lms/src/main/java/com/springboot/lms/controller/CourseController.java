@@ -50,4 +50,11 @@ public class CourseController {
 		return courseService.getAllCourses(page, size);
 	}
 
+	@GetMapping("/by-author")
+	public List<Course> getCoursesByAuthor(Principal principal) {
+		String username = principal.getName(); // logged in Author
+		List<Course> courses = courseService.getCoursesByAuthor(username);
+		return courses;
+	}
+
 }

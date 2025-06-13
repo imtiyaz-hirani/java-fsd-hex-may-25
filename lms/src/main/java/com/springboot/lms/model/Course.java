@@ -10,7 +10,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "course")
-public class Course {
+public class Course { // c
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +18,7 @@ public class Course {
 	@Column(nullable = false)
 	private String title;
 	private int credits;
-
+	private String imageUrl;
 	@ManyToOne
 	private Author author;
 
@@ -83,6 +83,10 @@ public class Course {
 		if (credits != other.credits)
 			return false;
 		return true;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
 	}
 
 }

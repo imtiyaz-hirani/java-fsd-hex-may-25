@@ -29,6 +29,7 @@ public class SecurityConfig {
 						.requestMatchers("/api/user/token").authenticated()
 						.requestMatchers("/api/user/details").authenticated()
 						.requestMatchers("/api/learner/add").permitAll()
+						.requestMatchers("/api/course/by-author").hasAuthority("AUTHOR")
 						.requestMatchers("/api/learner/get-one").hasAuthority("LEARNER")
 						.requestMatchers("/api/course/add").hasAnyAuthority("AUTHOR")
 						.requestMatchers("/api/author/add").permitAll()
