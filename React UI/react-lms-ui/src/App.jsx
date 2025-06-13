@@ -1,6 +1,10 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./components/Login";
 import AuthorDashboard from "./components/author/AuthorDashboard";
+import Courses from "./components/author/Courses";
+import Enrollments from "./components/author/Enrollments";
+import Profile from "./components/author/Profile";
+import Stats from "./components/author/Stats";
 import LearnerDashboard from "./components/learner/LearnerDashboard";
 
 function App() {
@@ -9,7 +13,12 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />}></Route>
-        <Route path="/author" element={<AuthorDashboard />}></Route>
+        <Route path="/author" element={<AuthorDashboard />}>
+          <Route index element={<Stats />} />
+          <Route path="courses" element={<Courses />} />
+          <Route path="enrollments" element={<Enrollments />} />
+          <Route path="profile" element={<Profile />} />
+        </Route>
         <Route path="/learner" element={<LearnerDashboard />}></Route>
       </Routes>
     </BrowserRouter>
