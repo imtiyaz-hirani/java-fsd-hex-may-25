@@ -1,12 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import AddPost from "./components/AddPost";
-import Concepts from "./components/Concepts";
-import CourseList from "./components/CourseList";
-import FetchPost from "./components/FetchPost";
 import Login from "./components/Login";
-import Post from "./components/Post";
-import Task from "./components/Task";
-import TodoList from "./components/Todo";
+import AuthorDashboard from "./components/author/AuthorDashboard";
+import LearnerDashboard from "./components/learner/LearnerDashboard";
 
 function App() {
 
@@ -14,8 +9,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />}></Route>
-        <Route path="/author" element={<Post />}></Route>
-        <Route path="/learner" element={<CourseList />}></Route>
+        <Route path="/author" element={<AuthorDashboard />}></Route>
+        <Route path="/learner" element={<LearnerDashboard />}></Route>
       </Routes>
     </BrowserRouter>
   )
