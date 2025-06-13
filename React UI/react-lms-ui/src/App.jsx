@@ -1,3 +1,4 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AddPost from "./components/AddPost";
 import Concepts from "./components/Concepts";
 import CourseList from "./components/CourseList";
@@ -10,16 +11,13 @@ import TodoList from "./components/Todo";
 function App() {
 
   return (
-    <div>
-      {/** <Concepts />**/}
-      {/** <Task />**/}
-      {/** <TodoList />**/}
-      {/** <Post /> **/}
-      {/** <AddPost />**/}
-      {/** <FetchPost /> **/}
-      {/* <CourseList /> */}
-      <Login />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />}></Route>
+        <Route path="/author" element={<Post />}></Route>
+        <Route path="/learner" element={<CourseList />}></Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
 

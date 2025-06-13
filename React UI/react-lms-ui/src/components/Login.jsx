@@ -1,10 +1,12 @@
 import axios, { AxiosHeaders } from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
     let [username, setUsername] = useState("");
     let [password, setPassword] = useState("");
     let [msg, setMsg] = useState("");
+    const navigate = useNavigate();
 
     const processLogin = async () => {
         // Encode username and password using btoa 
@@ -28,13 +30,13 @@ function Login() {
             let role = details.data.user.role;
             switch (role) {
                 case "LEARNER":
-                    console.log("go to learner dshboard ");
+                    navigate("/learner")
                     break;
                 case "AUTHOR":
-                    console.log("go to author dshboard ");
+                    navigate("/author")
                     break;
                 case "EXECUTIVE":
-                    console.log("go to executive dshboard ");
+                    navigate("/executive")
                     break;
                 default:
                     setMsg("Login Disabled, Contact Admin at admin@example.com")
@@ -67,7 +69,7 @@ function Login() {
                             </div> : ""}
 
                             <div className="mb-2">
-                                <lable>Enter username:</lable>
+                                <label>Enter username:</label>
                                 <input type="text" className="form-control"
                                     onChange={($e) => setUsername($e.target.value)} />
                             </div>
