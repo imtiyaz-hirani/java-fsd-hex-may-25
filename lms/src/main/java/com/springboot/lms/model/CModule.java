@@ -10,17 +10,17 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "cmodule")
-public class CModule {
+public class CModule { // m
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@Column(name = "module_title")
-	private String moduleTitle; 
-	
-	private int sequence; 
-	
-	@ManyToOne //<-- Creates course_id as a foreign key in module table
+	private String moduleTitle;
+
+	private int sequence;
+
+	@ManyToOne // <-- Creates course_id as a foreign key in module table
 	private Course course;
 
 	public int getId() {
@@ -54,6 +54,5 @@ public class CModule {
 	public void setCourse(Course course) {
 		this.course = course;
 	}
-	
-	
+
 }

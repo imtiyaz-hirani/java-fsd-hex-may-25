@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.lms.model.Video;
 import com.springboot.lms.service.VideoService;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
 @RequestMapping("/api/video")
@@ -31,6 +32,20 @@ public class VideoController {
             @PathVariable("moduleId") int moduleId) {
         videoService.batchInsert(list, moduleId);
         return ResponseEntity.ok().body("Operation Comleted!!!");
+    }
+
+    /*
+     * @path /api/video/getAll
+     * 
+     * @param @PathVariable courseId
+     * 
+     * @return ResponseEntity - Videos with Modules
+     * 
+     * @method GET
+     */
+    @GetMapping("/getAll/{courseId}")
+    public List<Video> getAllVideosWithModules(@PathVariable("courseId") int courseId) {
+        return videoService.getAllVideosWithModules(courseId);
     }
 
 }
