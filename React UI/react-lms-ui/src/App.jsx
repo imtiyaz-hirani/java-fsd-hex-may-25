@@ -6,9 +6,9 @@ import Enrollments from "./components/author/Enrollments";
 import Profile from "./components/author/Profile";
 import Stats from "./components/author/Stats";
 import LearnerDashboard from "./components/learner/LearnerDashboard";
+import CourseDetails from "./components/author/CourseDetails";
 
 function App() {
-
   return (
     <BrowserRouter>
       <Routes>
@@ -18,6 +18,7 @@ function App() {
           <Route path="courses" element={<Courses />} />
           <Route path="enrollments" element={<Enrollments />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="course-details/:cid" element={<CourseDetails />} />
         </Route>
         <Route path="/learner" element={<LearnerDashboard />}></Route>
       </Routes>
