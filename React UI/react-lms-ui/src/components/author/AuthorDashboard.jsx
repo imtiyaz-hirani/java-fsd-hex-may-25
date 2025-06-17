@@ -3,16 +3,21 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import '../../css/author.css';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
+import { fetchAllCourses } from '../../store/actions/CourseAction';
+import { useDispatch } from 'react-redux';
 
 function AuthorDashboard() {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         let token = localStorage.getItem('token');
         if (token == null || token == undefined || token == "")
-            navigate("/")
-    }, []);
+            navigate("/");
+
+        fetchAllCourses(dispatch)();
+    }, [dispatch]);
     // State to track if the sidebar/overlay is "closed" (meaning the overlay is hidden and sidebar is collapsed)
     const [isClosed, setIsClosed] = useState(true);
 

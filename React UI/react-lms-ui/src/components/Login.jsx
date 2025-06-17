@@ -72,7 +72,7 @@ function Login() {
                         <div className="card-header"> Login</div>
                         <div className="card-body">
                             {msg !== "" ? <div>
-                                <div class="alert alert-info" >
+                                <div className="alert alert-info" >
                                     {msg}
                                 </div>
                             </div> : ""}
@@ -83,7 +83,7 @@ function Login() {
                                     onChange={($e) => setUsername($e.target.value)} />
                             </div>
                             <div className="mb-2">
-                                <lable>Enter password:</lable>
+                                <label>Enter password:</label>
                                 <input type="text" className="form-control"
                                     onChange={($e) => setPassword($e.target.value)} />
                             </div>

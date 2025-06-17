@@ -5,7 +5,7 @@ const initialState = {
 }
 const UserReducer = (state = initialState, action) => {
 
-    if (action.type === "SET_USER_DETAILS") {  // This is for login 
+    if (action.type === "SET_USER_DETAILS") {   // This is for login 
         let user = action.payload;
         return {
             ...state,
