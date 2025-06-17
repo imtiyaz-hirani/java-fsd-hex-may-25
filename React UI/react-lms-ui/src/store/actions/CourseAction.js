@@ -5,7 +5,7 @@ export const fetchAllCourses = (dispatch) => () => {
     //call the API 
     axios.get('http://localhost:8080/api/course/all')
         .then(function (response) {
-            console.log(response.data)
+            console.log(response)
             dispatch({
                 'payload': response.data,
                 'type': 'FETCH_ALL_COURSES'

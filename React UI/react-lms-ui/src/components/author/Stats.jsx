@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 function Stats() {
-    const [courses,] = useState(useSelector(state => state.courses));
+    const [courses,] = useState(useSelector(state => state.courses.courses));
+
     return (
         <div>
             <h1>Stats</h1>

@@ -3,8 +3,9 @@ const initialState = {
     courses: []
 }
 const CourseReducer = (state = initialState, action) => {
+    console.log('In reducer... ')
+    console.log(action.payload)
     if (action.type === "FETCH_ALL_COURSES") {
-        console.log('in reducer ' + action.payload)
         return {
             ...state,
             courses: action.payload
