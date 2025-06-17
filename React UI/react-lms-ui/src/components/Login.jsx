@@ -1,12 +1,15 @@
 import axios, { AxiosHeaders } from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { setUserDetails } from "../store/actions/UserAction";
+import { useDispatch } from "react-redux";
 
 function Login() {
     let [username, setUsername] = useState("");
     let [password, setPassword] = useState("");
     let [msg, setMsg] = useState("");
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const processLogin = async () => {
         // Encode username and password using btoa 
@@ -25,6 +28,11 @@ function Login() {
                 headers: { "Authorization": "Bearer " + token }
             }
             )
+            let user = {
+                'username': username,
+                'role': details.data.user.role
+            }
+            setUserDetails(dispatch)(user); //<-- this is where i save this user details in store
             //console.log(details)
             let name = details.data.name;
             localStorage.setItem('name', name);
