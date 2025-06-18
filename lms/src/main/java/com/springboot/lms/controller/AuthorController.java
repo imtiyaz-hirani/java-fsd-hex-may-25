@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.springboot.lms.dto.CourseEnrollBarDto;
 import com.springboot.lms.model.Author;
 import com.springboot.lms.service.AuthorService;
 
@@ -44,6 +45,12 @@ public class AuthorController {
     @GetMapping("/get")
     public Author getAuthorInfo(Principal principal) {
         return authorService.getAuthorInfo(principal.getName());
+    }
+
+    @GetMapping("/enroll/stats")
+    public CourseEnrollBarDto getCourseEnrollStatsForAuthor(Principal principal, CourseEnrollBarDto dto) {
+        return authorService.getCourseEnrollStats(principal.getName(), dto);
+
     }
 
 }

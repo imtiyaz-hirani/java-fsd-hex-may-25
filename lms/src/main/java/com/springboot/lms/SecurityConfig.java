@@ -35,6 +35,7 @@ public class SecurityConfig {
 						.requestMatchers("/api/author/add").permitAll()
 						.requestMatchers("/api/author/uplad/profile-pic").hasAuthority("AUTHOR")
 						.requestMatchers("/api/author/get").hasAuthority("AUTHOR")
+						.requestMatchers("/api/author/enroll/stats").hasAuthority("AUTHOR")
 						.requestMatchers("/api/course/all").permitAll()
 						.requestMatchers("/api/learner/update/{id}").hasAuthority("LEARNER")
 						.requestMatchers("/api/module/add/{courseId}").hasAuthority("AUTHOR")

@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -12,20 +13,29 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.springboot.lms.dto.CourseEnrollBarDto;
 import com.springboot.lms.model.Author;
+import com.springboot.lms.model.Course;
+import com.springboot.lms.model.LearnerCourse;
 import com.springboot.lms.model.User;
 import com.springboot.lms.repository.AuthorRepository;
+import com.springboot.lms.repository.LearnerCourseRepository;
 
 @Service
 public class AuthorService {
 
     private AuthorRepository authorRepository;
     private UserService userService;
+    private CourseService courseService;
+    private LearnerCourseRepository learnerCourseRepository;
     Logger logger = LoggerFactory.getLogger(AuthorService.class);
 
-    public AuthorService(AuthorRepository authorRepository, UserService userService) {
+    public AuthorService(AuthorRepository authorRepository, UserService userService, CourseService courseService,
+            LearnerCourseRepository learnerCourseRepository) {
         this.authorRepository = authorRepository;
         this.userService = userService;
+        this.courseService = courseService;
+        this.learnerCourseRepository = learnerCourseRepository;
     }
 
     public Author postAuthor(Author author) {
@@ -54,7 +64,6 @@ public class AuthorService {
         String originalFileName = file.getOriginalFilename(); // profile_pic.png
         logger.info(originalFileName.getClass().toString());
 
-        logger.info("" + originalFileName.split("\\.").length);
         String extension = originalFileName.split("\\.")[1]; // png
         if (!(List.of("jpg", "jpeg", "png", "gif", "svg").contains(extension))) {
             logger.error("extension not approved " + extension);
@@ -87,6 +96,24 @@ public class AuthorService {
     public Author getAuthorInfo(String username) {
         /* Fetch Author Info by username */
         return authorRepository.getAuthorByUsername(username);
+    }
+
+    public CourseEnrollBarDto getCourseEnrollStats(String username, CourseEnrollBarDto dto) {
+        List<Course> courses = courseService.getCoursesByAuthor(username);
+        // this is list of all enrollment of all author courses
+        List<LearnerCourse> list = learnerCourseRepository.getEnrollsByAuthorUsername(username);
+        List<String> courseTitles = new ArrayList<>();
+        List<Integer> enrolls = new ArrayList<>();
+
+        courses.stream().forEach(c -> {
+            long num = list.stream().filter(lc -> lc.getCourse().getId() == c.getId()).count();
+            courseTitles.add(c.getTitle());
+            enrolls.add((int) num);
+        });
+        dto.setCourseTitles(courseTitles);
+        dto.setEnrolls(enrolls);
+        return dto;
+
     }
 
 }

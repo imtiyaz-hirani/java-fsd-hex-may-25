@@ -10,25 +10,30 @@ import com.springboot.lms.model.Course;
 import com.springboot.lms.model.Learner;
 import com.springboot.lms.model.LearnerCourse;
 
-public interface LearnerCourseRepository extends JpaRepository<LearnerCourse, Integer>{
+public interface LearnerCourseRepository extends JpaRepository<LearnerCourse, Integer> {
 
 	@Query(value = "select * from learner_course where learner_id=?1 AND course_id=?2", nativeQuery = true)
 	Optional<LearnerCourse> getUsingNativeSql(int learnerId, int courseId);
-	
+
 	@Query("select lc from LearnerCourse lc where lc.learner.id= ?1 AND lc.course.id=?2")
 	Optional<LearnerCourse> getUsingJPQL(int learnerId, int courseId);
 
 	@Query("select lc.learner from LearnerCourse lc where lc.course.id=?1")
 	List<Learner> getLearnerByCourseId(int courseId);
-	
+
 	@Query("select lc.course from LearnerCourse lc where lc.learner.id=?1")
 	List<Course> getCourseByLearnerId(int learnerId);
- 
+
+	@Query("select lc from LearnerCourse lc join lc.course c join c.author a join a.user u where u.username=?1")
+	// @Query("select lc from LearnerCourse lc where lc.course.author.user.username
+	// = ?1")
+	List<LearnerCourse> getEnrollsByAuthorUsername(String username);
 }
 
 /*
  * Native Query locks this application on MySql DB(or on a particular DB)
- * INSTEAD 
- * Use JPQL as it queries the model class and not the DB tables so it does not care which DB we use. 
- * its DB Independent 
- * */
+ * INSTEAD
+ * Use JPQL as it queries the model class and not the DB tables so it does not
+ * care which DB we use.
+ * its DB Independent
+ */
