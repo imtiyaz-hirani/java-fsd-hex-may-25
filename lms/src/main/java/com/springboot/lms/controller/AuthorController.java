@@ -14,8 +14,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.springboot.lms.model.Author;
 import com.springboot.lms.service.AuthorService;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+
 @RestController
 @RequestMapping("/api/author")
+@CrossOrigin(origins = "http://localhost:5173")
 public class AuthorController {
 
     @Autowired
@@ -35,6 +39,11 @@ public class AuthorController {
     @PostMapping("/uplad/profile-pic")
     public Author uploadProfilePic(Principal principal, @RequestParam("file") MultipartFile file) throws IOException {
         return authorService.uploadProfilePic(file, principal.getName());
+    }
+
+    @GetMapping("/get")
+    public Author getAuthorInfo(Principal principal) {
+        return authorService.getAuthorInfo(principal.getName());
     }
 
 }

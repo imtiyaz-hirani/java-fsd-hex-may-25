@@ -84,4 +84,9 @@ public class AuthorService {
         return authorRepository.save(author);
     }
 
+    public Author getAuthorInfo(String username) {
+        /* Fetch Author Info by username */
+        return authorRepository.getAuthorByUsername(username);
+    }
+
 }

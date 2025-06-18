@@ -7,6 +7,7 @@ import Profile from "./components/author/Profile";
 import Stats from "./components/author/Stats";
 import LearnerDashboard from "./components/learner/LearnerDashboard";
 import CourseDetails from "./components/author/CourseDetails";
+import UploadProfilePic from "./components/author/UploadProfilePic";
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
           <Route path="enrollments" element={<Enrollments />} />
           <Route path="profile" element={<Profile />} />
           <Route path="course-details/:cid" element={<CourseDetails />} />
+          <Route path="upload-profile-pic" element={<UploadProfilePic />} />
+
         </Route>
         <Route path="/learner" element={<LearnerDashboard />}></Route>
       </Routes>
