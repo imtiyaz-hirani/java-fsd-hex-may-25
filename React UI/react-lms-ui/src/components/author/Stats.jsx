@@ -14,9 +14,6 @@ function Stats() {
             let response = await axios.get('http://localhost:8080/api/author/enroll/stats',
                 { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') } }
             )
-            setTitles(response.data.courseTitles)
-            setEnrolls(response.data.enrolls)
-
             const data = {
                 labels: response?.data?.courseTitles,
                 datasets: [
